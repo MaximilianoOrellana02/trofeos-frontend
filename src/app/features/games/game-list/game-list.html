@@ -1,0 +1,108 @@
+<div class="juegos">
+
+    <!-- ==========================================================
+       ENCABEZADO
+       ========================================================== -->
+    <header class="cabecera d-flex align-items-baseline justify-content-between">
+        <h1 class="titulo">Tus juegos</h1>
+        <p class="resumen dato">
+            {{ resumen().total | number }} juegos · {{ resumen().platinados | number }} platinados
+        </p>
+    </header>
+
+    <!-- ==========================================================
+       BUSCADOR
+       ========================================================== -->
+    <div class="buscador">
+        <!-- PLACEHOLDER: reemplazar por el ícono de lupa definitivo -->
+        <span class="buscador-icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="11" cy="11" r="7" />
+            </svg>
+        </span>
+        <input type="search" class="form-control buscador-campo" placeholder="Buscar por nombre" [value]="busqueda()"
+            (input)="alBuscar($any($event.target).value)" />
+    </div>
+
+    <!-- ==========================================================
+       FILTROS DE PLATAFORMA
+       ========================================================== -->
+    <div class="filtros">
+        @for (f of filtros; track f.clave) {
+        <button type="button" class="chip eyebrow" [class.chip--activo]="filtro() === f.clave"
+            (click)="filtro.set(f.clave)">
+            {{ f.etiqueta }}
+        </button>
+        }
+    </div>
+
+    <!-- ==========================================================
+       ORDEN
+       ========================================================== -->
+    <div class="orden d-flex align-items-center">
+        <span class="eyebrow orden-label">Orden</span>
+
+        <button type="button" class="orden-opcion" [class.orden-opcion--activa]="orden() === 'ultimo'"
+            (click)="orden.set('ultimo')">último jugado</button>
+
+        <button type="button" class="orden-opcion" [class.orden-opcion--activa]="orden() === 'progreso'"
+            (click)="orden.set('progreso')">progreso</button>
+
+        <button type="button" class="orden-opcion" [class.orden-opcion--activa]="orden() === 'nombre'"
+            (click)="orden.set('nombre')">nombre</button>
+    </div>
+
+    <!-- ==========================================================
+       LISTA
+       ========================================================== -->
+    @if (cargando()) {
+    <p class="mensaje eyebrow">Cargando juegos</p>
+    } @else if (!juegosVisibles().length) {
+    <p class="mensaje">No hay juegos que coincidan.</p>
+    } @else {
+    <ul class="lista">
+        @for (j of juegosVisibles(); track j.id) {
+        <li [routerLink]="['/juegos', j.id]" class="fila">
+            <!-- Ícono -->
+            <span class="icono" [style.background-color]="colorFondo(j.name)">
+                @if (j.iconUrl) {
+                <img [src]="j.iconUrl" [alt]="j.name" (error)="ocultarImagen($event)" />
+                }
+                <span class="icono-iniciales dato">{{ iniciales(j.name) }}</span>
+            </span>
+
+            <!-- Centro -->
+            <span class="centro">
+                <span class="nombre">{{ j.name }}</span>
+
+                <span class="barra">
+                    <span class="barra-relleno" [class.barra-relleno--completo]="j.progress >= 100"
+                        [style.width.%]="j.progress"></span>
+                </span>
+
+                <span class="meta dato">
+                    {{ obtenidos(j) }}/{{ totales(j) }} trofeos
+                    @if (j.lastPlayedAt) {
+                    · {{ j.lastPlayedAt | date: 'd MMM y' }}
+                    }
+                </span>
+            </span>
+
+            <!-- Derecha -->
+            <span class="derecha">
+                <span class="plataforma dato">{{ plataformaPrincipal(j.platform) }}</span>
+
+                <span class="derecha-abajo">
+                    <span class="porcentaje dato">{{ j.progress }}%</span>
+                    @if (j.earned.platinum > 0) {
+                    <!-- PLACEHOLDER: reemplazar por el SVG del platino -->
+                    <span class="platino" title="Platino obtenido"></span>
+                    }
+                </span>
+            </span>
+        </li>
+        }
+    </ul>
+    }
+
+</div>

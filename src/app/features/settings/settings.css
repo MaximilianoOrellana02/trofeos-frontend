@@ -1,0 +1,367 @@
+:host {
+    display: block;
+}
+
+.ajustes {
+    padding: var(--sp-5) var(--sp-5) var(--sp-4);
+}
+
+.titulo {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--tiza);
+    margin-bottom: var(--sp-5);
+}
+
+.bloque {
+    margin-bottom: var(--sp-5);
+}
+
+.bloque-titulo {
+    margin-bottom: var(--sp-2);
+}
+
+/* ==========================================================================
+   FILAS Y OPCIONES GENÉRICAS (reutilizadas en varios bloques)
+   ========================================================================== */
+
+.opcion,
+.fila-simple {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--bisel);
+    padding: var(--sp-4);
+    font-size: var(--fs-body);
+    color: var(--tiza);
+    text-align: left;
+    cursor: pointer;
+}
+
+.opcion:disabled {
+    cursor: default;
+    color: var(--humo);
+}
+
+.opcion--ultima {
+    border-bottom: none;
+}
+
+.opcion-flecha {
+    color: var(--humo);
+}
+
+.opcion-valor {
+    color: var(--humo);
+    font-size: var(--fs-sm);
+}
+
+.opcion--peligro {
+    color: var(--state-danger);
+}
+
+.fila-simple {
+    cursor: default;
+    font-size: var(--fs-sm);
+    color: var(--humo);
+}
+
+/* ==========================================================================
+   CUENTA
+   ========================================================================== */
+
+.fila-cuenta {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-4);
+    border-bottom: 1px solid var(--bisel);
+}
+
+.avatar {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--senal-soft);
+}
+
+.avatar img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.avatar-iniciales {
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--senal);
+}
+
+.fila-cuenta-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.nombre {
+    font-weight: 700;
+    color: var(--tiza);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.email {
+    font-size: var(--fs-sm);
+    color: var(--senal);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   TARJETA PSN
+   ========================================================================== */
+
+.tarjeta-psn {
+    padding: var(--sp-4);
+}
+
+.psn-fila {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-2);
+}
+
+.psn-titulo {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--tiza);
+}
+
+.psn-punto {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--senal);
+}
+
+.psn-punto--alerta {
+    background-color: var(--state-danger);
+}
+
+.psn-texto {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin-bottom: var(--sp-4);
+}
+
+.psn-progreso {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-4);
+}
+
+.psn-progreso .progress {
+    flex: 1;
+    --bs-progress-bg: var(--bisel);
+    --bs-progress-height: 4px;
+}
+
+.progress-bar--alerta {
+    background-color: var(--state-danger);
+}
+
+.psn-dias {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    white-space: nowrap;
+}
+
+.renovar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--senal);
+    text-decoration: none;
+    padding-top: var(--sp-3);
+    border-top: 1px solid var(--bisel);
+}
+
+.nota-ayuda {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: var(--sp-2) 0 0;
+}
+
+/* ==========================================================================
+   TEMA
+   ========================================================================== */
+
+.tema-fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--sp-4) var(--sp-4) var(--sp-3);
+}
+
+.tema-nombre {
+    font-weight: 700;
+    color: var(--tiza);
+}
+
+.tema-nota {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+}
+
+.tema-botones {
+    display: flex;
+    gap: var(--sp-2);
+    padding: 0 var(--sp-4) var(--sp-4);
+}
+
+.tema-boton {
+    flex: 1;
+    background: none;
+    border: 1px solid var(--bisel);
+    border-radius: var(--radius-md);
+    color: var(--humo);
+    padding: var(--sp-3);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.tema-boton--activo {
+    background-color: var(--senal);
+    border-color: var(--senal);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   TOGGLES
+   ========================================================================== */
+
+.toggle-fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    padding: var(--sp-4);
+    border-bottom: 1px solid var(--bisel);
+}
+
+.toggle-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.toggle-nombre {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-weight: 700;
+    color: var(--tiza);
+}
+
+.toggle-detalle {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+}
+
+.badge-proximamente {
+    font-size: 0.5rem;
+    color: var(--senal);
+    border: 1px solid var(--senal);
+    border-radius: var(--radius-pill);
+    padding: 1px var(--sp-2);
+    white-space: nowrap;
+}
+
+/* Switch deshabilitado: se ve, pero no se toca */
+.toggle-switch {
+    position: relative;
+    width: 40px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: var(--radius-pill);
+    background-color: var(--bisel);
+}
+
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--humo);
+}
+
+.toggle-switch--deshabilitado {
+    opacity: 0.5;
+}
+
+/* ==========================================================================
+   CONFIRMACIÓN DE SALIDA
+   ========================================================================== */
+
+.confirmacion {
+    padding: var(--sp-4);
+}
+
+.confirmacion-texto {
+    font-size: var(--fs-sm);
+    color: var(--tiza);
+    margin-bottom: var(--sp-3);
+}
+
+.confirmacion-botones {
+    display: flex;
+    gap: var(--sp-2);
+}
+
+.confirmacion-botones .btn {
+    flex: 1;
+}
+
+/* ==========================================================================
+   PIE
+   ========================================================================== */
+
+.pie {
+    text-align: center;
+    padding-top: var(--sp-4);
+}
+
+.pie-version {
+    font-size: var(--fs-xs);
+    color: var(--humo);
+    margin-bottom: var(--sp-1);
+}
+
+.pie-legal {
+    font-size: var(--fs-xs);
+    color: var(--humo);
+    opacity: 0.65;
+    margin: 0;
+}

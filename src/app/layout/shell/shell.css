@@ -1,0 +1,94 @@
+:host {
+    display: block;
+    min-height: 100dvh;
+    background-color: var(--vitrina);
+}
+
+.shell {
+    min-height: 100dvh;
+}
+
+/* ==========================================================================
+   CONTENIDO
+   ========================================================================== */
+
+.contenido {
+    max-width: 480px;
+    margin-inline: auto;
+    /* Deja lugar para la tab bar fija más la barra de gestos del sistema */
+    padding-bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom) + var(--sp-4));
+}
+
+/* ==========================================================================
+   TAB BAR
+   ========================================================================== */
+
+.tabbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+
+    display: flex;
+    max-width: 480px;
+    margin-inline: auto;
+
+    background-color: var(--vitrina);
+    border-top: 1px solid var(--bisel);
+
+    /* La barra de gestos de Android se come el borde inferior si no lo contemplamos */
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-1);
+
+    height: var(--tabbar-height);
+    padding-block: var(--sp-2);
+
+    color: var(--humo);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.tab:hover {
+    color: var(--tiza);
+}
+
+/* Estado activo: la sección actual se ilumina. El color es la única señal,
+   sin fondos ni pastillas: la separación del sistema es el bisel. */
+.tab--activo {
+    color: var(--tiza);
+}
+
+.tab-icono {
+    display: grid;
+    place-items: center;
+    height: 22px;
+}
+
+.tab-etiqueta {
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    color: inherit;
+    line-height: 1;
+}
+
+/* Área táctil cómoda sin agrandar el elemento visualmente */
+.tab::after {
+    content: '';
+    position: absolute;
+}
+
+/* Respeta el foco de teclado del sistema */
+.tab:focus-visible {
+    outline: 2px solid var(--senal);
+    outline-offset: -2px;
+    border-radius: var(--radius-sm);
+}

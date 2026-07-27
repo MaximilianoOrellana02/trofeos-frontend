@@ -1,0 +1,179 @@
+<div class="detalle">
+
+    <!-- ==========================================================
+       BARRA SUPERIOR
+       ========================================================== -->
+    <div class="superior d-flex align-items-center justify-content-between">
+        <a class="volver eyebrow" routerLink="/juegos">← Biblioteca</a>
+        <button type="button" class="compartir eyebrow">Compartir</button>
+    </div>
+
+    @if (cargando()) {
+    <p class="mensaje eyebrow">Cargando</p>
+    }
+
+    @if (data(); as d) {
+
+    <!-- ==========================================================
+         ENCABEZADO DEL JUEGO
+         ========================================================== -->
+    <header class="cabecera">
+        <span class="portada" [style.background-color]="colorFondo(d.game.name)">
+            @if (d.game.iconUrl) {
+            <img [src]="d.game.iconUrl" [alt]="d.game.name" (error)="ocultarImagen($event)" />
+            }
+            <span class="portada-iniciales dato">{{ iniciales(d.game.name) }}</span>
+        </span>
+
+        <div class="cabecera-texto">
+            <h1 class="titulo">{{ d.game.name }}</h1>
+
+            <p class="linea-meta">
+                <span class="plataforma dato">{{ plataformaPrincipal(d.game.platform) }}</span>
+                @if (d.game.lastPlayedAt) {
+                <span class="jugado dato">jugado {{ d.game.lastPlayedAt | date: 'd MMM y' }}</span>
+                }
+            </p>
+
+            <p class="progreso dato">
+                {{ d.game.progress }}<span class="progreso-signo">%</span>
+                <span class="progreso-fraccion">
+                    · {{ totales().obtenidos }}/{{ totales().todos }}
+                </span>
+            </p>
+        </div>
+    </header>
+
+    <!-- ==========================================================
+         BARRA SEGMENTADA POR METAL
+         ========================================================== -->
+    <section class="resumen">
+        <div class="barra">
+            @for (seg of segmentos(); track seg.tipo) {
+            <span class="seg" [class]="'seg--' + seg.tipo" [style.width.%]="seg.porcentaje"></span>
+            }
+            <span class="seg seg--vacio" [style.width.%]="porcentajeSinGanar()"></span>
+        </div>
+
+        <div class="resumen-texto d-flex justify-content-between">
+            <span class="dato">
+                @for (m of obtenidosPorMetal(); track m.tipo) {
+                {{ m.cantidad }} {{ m.nombre }}@if (!$last) { · }
+                }
+                obtenidos
+            </span>
+            <span class="dato">{{ totales().faltan }} sin ganar</span>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         TARJETA DEL PLATINO
+         ========================================================== -->
+    @if (platino(); as p) {
+    <section class="superficie tarjeta-platino">
+        <div class="platino-fila">
+            <!-- PLACEHOLDER: reemplazar por el SVG del platino -->
+            <span class="platino-esfera" aria-hidden="true"></span>
+
+            <div class="platino-texto">
+                <h2 class="platino-nombre">{{ p.name }}</h2>
+                <p class="platino-detalle">
+                    El platino de este juego.
+                    @if (!p.earned) {
+                    Te faltan {{ totales().faltan }} trofeos.
+                    } @else {
+                    Ya lo tenés.
+                    }
+                </p>
+            </div>
+
+            <div class="platino-rareza">
+                <p class="platino-numero dato">{{ p.rarity | number: '1.1-1' }}</p>
+                <p class="eyebrow platino-nivel">{{ etiquetaRareza(p) }}</p>
+            </div>
+        </div>
+
+        <!-- NOTA: este bloque es texto fijo. No hay dato en el backend que
+             permita calcular "lo más cercano". Queda pendiente de la función
+             "camino al platino". -->
+        <div class="platino-pie">
+            <p class="platino-consejo">
+                Lo más cercano: los 3 finales.<br />
+                Se pueden hacer en una misma partida.
+            </p>
+            <button type="button" class="btn btn-bisel eyebrow">Camino al platino</button>
+        </div>
+    </section>
+    }
+
+    <!-- ==========================================================
+         FILTROS
+         ========================================================== -->
+    <div class="filtros">
+        <button type="button" class="filtro eyebrow" [class.filtro--activo]="filtro() === 'todos'"
+            (click)="filtro.set('todos')">Todos {{ totales().todos }}</button>
+
+        <button type="button" class="filtro eyebrow" [class.filtro--activo]="filtro() === 'obtenidos'"
+            (click)="filtro.set('obtenidos')">Obtenidos {{ totales().obtenidos }}</button>
+
+        <button type="button" class="filtro eyebrow" [class.filtro--activo]="filtro() === 'faltan'"
+            (click)="filtro.set('faltan')">Faltan {{ totales().faltan }}</button>
+    </div>
+
+    <!-- ==========================================================
+         LISTA DE TROFEOS
+         ========================================================== -->
+    @if (!trofeosVisibles().length) {
+    <p class="mensaje">No hay trofeos en esta vista.</p>
+    } @else {
+    <ul class="lista">
+        @for (t of trofeosVisibles(); track t.id) {
+        <li class="fila" [class.fila--bloqueada]="!t.earned">
+
+            <span class="trofeo-icono" [class.trofeo-icono--velado]="t.isHidden && !t.earned">
+                @if (t.iconUrl && !(t.isHidden && !t.earned)) {
+                <img [src]="t.iconUrl" [alt]="t.name" (error)="ocultarImagen($event)" />
+                }
+                @if (t.isHidden && !t.earned) {
+                <span class="interrogante dato">?</span>
+                }
+            </span>
+
+            <span class="trofeo-texto">
+                <span class="trofeo-nombre">
+                    {{ t.isHidden && !t.earned ? 'Trofeo oculto' : t.name }}
+                </span>
+
+                <span class="trofeo-desc">
+                    {{ t.isHidden && !t.earned
+                    ? 'Se revela cuando lo consigas.'
+                    : (t.description ?? '') }}
+                </span>
+
+                <span class="trofeo-rareza">
+                    <span class="rareza-numero dato" [class]="claseRareza(t.rarity)">
+                        {{ t.rarity | number: '1.1-1' }}%
+                    </span>
+                    <span class="eyebrow rareza-nivel">{{ etiquetaRareza(t) }}</span>
+                </span>
+            </span>
+
+            <span class="trofeo-derecha">
+                <!-- PLACEHOLDER: reemplazar por el SVG de cada metal -->
+                <span class="metal-punto" [class]="'seg--' + t.type" [class.metal-punto--apagado]="!t.earned"></span>
+
+                <span class="trofeo-fecha dato">
+                    {{ t.earned && t.earnedAt
+                    ? (t.earnedAt | date: 'd MMM y')
+                    : 'te falta' }}
+                </span>
+            </span>
+
+        </li>
+        }
+    </ul>
+    }
+
+    }
+
+</div>

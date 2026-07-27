@@ -1,0 +1,160 @@
+<div class="vincular d-flex flex-column">
+
+    <!-- ==========================================================
+       PROGRESO — un segmento por paso
+       ========================================================== -->
+    <div class="segmentos d-flex" role="progressbar" [attr.aria-valuenow]="paso()" aria-valuemin="1" aria-valuemax="3">
+        @for (n of [1, 2, 3]; track n) {
+        <span class="segmento" [class.segmento--activo]="n <= paso()"></span>
+        }
+    </div>
+
+    <p class="eyebrow paso-indicador">Paso {{ paso() }} de {{ TOTAL_PASOS }}</p>
+
+    <!-- ==========================================================
+       PASO 1 — Explicación
+       ========================================================== -->
+    @if (paso() === 1) {
+    <section class="contenido">
+        <h1 class="titulo">Conectar tu cuenta de PlayStation</h1>
+
+        <p class="parrafo">
+            Sony no tiene una forma linda de hacer esto, así que te lo cuento
+            derecho: vas a copiar un código de tu sesión del navegador y pegarlo
+            acá. Son tres pasos y no se repite hasta dentro de dos meses.
+        </p>
+
+        <div class="superficie tarjeta">
+            <h2 class="tarjeta-titulo">Qué hago con esto</h2>
+            <p class="tarjeta-texto">
+                Lo guardo solo en tu teléfono y lo uso para pedirle a Sony tu lista de
+                trofeos. No lo mando a ningún otro lado y no puedo comprar nada ni
+                entrar a tus mensajes con él.
+            </p>
+        </div>
+
+        <div class="superficie tarjeta">
+            <h2 class="tarjeta-titulo">Esto se vence cada dos meses</h2>
+            <p class="tarjeta-texto">
+                Sony le pone fecha de caducidad. Cuando pase, te aviso acá y repetís
+                estos tres pasos: son 40 segundos.
+            </p>
+        </div>
+    </section>
+    }
+
+    <!-- ==========================================================
+       PASO 2 — Conseguir el código
+       ========================================================== -->
+    @if (paso() === 2) {
+    <section class="contenido">
+        <h1 class="titulo">Iniciá sesión y copiá el código</h1>
+
+        <p class="parrafo">
+            Primero entrá a tu cuenta. Después abrís el segundo link y ahí aparece
+            el código.
+        </p>
+
+        <button type="button" class="btn boton-externo w-100" (click)="abrirPlaystation()">
+            <span class="orden dato">1</span>
+            <span class="eyebrow">Iniciar sesión en PlayStation</span>
+            <span class="flecha" aria-hidden="true">↗</span>
+        </button>
+
+        <button type="button" class="btn boton-externo w-100" (click)="abrirCodigo()">
+            <span class="orden dato">2</span>
+            <span class="eyebrow">Ver mi código</span>
+            <span class="flecha" aria-hidden="true">↗</span>
+        </button>
+
+        <div class="superficie tarjeta">
+            <p class="tarjeta-texto mb-3">
+                En la segunda pestaña vas a ver un texto así:
+            </p>
+
+            <pre class="ejemplo dato"><span class="ejemplo-fuera">&#123;"npsso":"</span><span
+          class="ejemplo-marcado">rQ8xLm2VpK9fTz4bNc7Hs1WdYe6Ag3JqUv5Rn0Xk8Cb2Lp7Mt4Ds9Fw3Zj6Hy1Gq</span><span
+          class="ejemplo-fuera">"&#125;</span></pre>
+
+            <p class="tarjeta-texto mb-0">
+                Copiá <strong>solo lo resaltado</strong>, sin las comillas. Volvé acá
+                y pegalo.
+            </p>
+        </div>
+    </section>
+    }
+
+    <!-- ==========================================================
+       PASO 3 — Pegar y conectar
+       ========================================================== -->
+    @if (paso() === 3) {
+    <section class="contenido">
+        <h1 class="titulo">Pegá el código</h1>
+
+        <p class="parrafo">
+            Son {{ LARGO_ESPERADO }} caracteres. Si te falta alguno te lo aviso
+            antes de intentar conectar.
+        </p>
+
+        <textarea class="form-control campo-codigo dato" [class.campo-codigo--error]="codigoExcedido()" rows="4"
+            placeholder="Pegá el código acá" spellcheck="false" autocapitalize="off" autocomplete="off"
+            [value]="codigo()" (input)="alEscribir($any($event.target).value)"></textarea>
+
+        <div class="contador d-flex justify-content-between align-items-center">
+            <span class="contador-aviso">
+                @if (avisoLargo()) {
+                {{ avisoLargo() }}
+                } @else if (codigoCompleto()) {
+                Listo, son los {{ LARGO_ESPERADO }}.
+                } @else {
+                Pegá los {{ LARGO_ESPERADO }} caracteres que copiaste.
+                }
+            </span>
+            <span class="contador-numero dato" [class.contador-numero--ok]="codigoCompleto()"
+                [class.contador-numero--error]="codigoExcedido()">{{ cantidadCaracteres() }}/{{ LARGO_ESPERADO }}</span>
+        </div>
+
+        @if (error()) {
+        <div class="alerta" role="alert">{{ error() }}</div>
+        }
+
+        <button type="button" class="btn btn-senal w-100 boton-conectar eyebrow"
+            [disabled]="!codigoCompleto() || conectando()" (click)="conectar()">
+            @if (conectando()) {
+            <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+            Conectando
+            } @else {
+            Conectar y traer mis trofeos
+            }
+        </button>
+
+        <p class="nota-final">
+            La primera vez tarda unos minutos. Podés cerrar la app, sigue igual.
+        </p>
+    </section>
+    }
+
+    <!-- ==========================================================
+       BARRA INFERIOR
+       ========================================================== -->
+    <div class="barra-inferior d-flex mt-auto">
+        <button type="button" class="btn btn-bisel eyebrow boton-atras" (click)="retroceder()">
+            Atrás
+        </button>
+
+        @if (paso() === 1) {
+        <button type="button" class="btn btn-bisel eyebrow boton-avanzar" (click)="avanzar()">
+            Dale, empecemos
+        </button>
+        } @else if (paso() === 2) {
+        <button type="button" class="btn btn-bisel eyebrow boton-avanzar" (click)="avanzar()">
+            Ya lo copié
+        </button>
+        } @else {
+        <button type="button" class="btn btn-bisel eyebrow boton-avanzar" (click)="irAlPaso(2)">
+            Repetir el paso 2
+        </button>
+        }
+    </div>
+
+</div>

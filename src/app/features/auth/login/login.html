@@ -1,0 +1,104 @@
+<div class="login-pantalla d-flex flex-column">
+
+    <!-- ==========================================================
+       HERO
+       ========================================================== -->
+    <header class="login-hero">
+
+        <!-- Los cuatro metales, en orden de jerarquía.
+         PLACEHOLDER: reemplazar cada <span> por el SVG correspondiente. -->
+        <div class="metales d-flex align-items-center" aria-hidden="true">
+            <span class="metal metal--platino"></span>
+            <span class="metal metal--oro"></span>
+            <span class="metal metal--plata"></span>
+            <span class="metal metal--bronce"></span>
+        </div>
+
+        <h1 class="hero-titulo">
+            Todo <em>lo que</em><br />
+            ganaste,<br />
+            en <em>un lugar.</em>
+        </h1>
+
+        <p class="hero-bajada">
+            <span class="dato rareza-ultra-raro">0,4%</span>
+            de los jugadores tiene tu trofeo más raro. Acá se ve.
+        </p>
+    </header>
+
+    <!-- ==========================================================
+       FORMULARIO
+       ========================================================== -->
+    <main class="login-form">
+
+        <!-- Alternador entrar / crear cuenta -->
+        <div class="tabs d-flex" role="tablist">
+            <button type="button" role="tab" class="tab eyebrow" [class.tab--activo]="mode() === 'login'"
+                [attr.aria-selected]="mode() === 'login'" (click)="setMode('login')">
+                Entrar
+            </button>
+            <button type="button" role="tab" class="tab eyebrow" [class.tab--activo]="mode() === 'register'"
+                [attr.aria-selected]="mode() === 'register'" (click)="setMode('register')">
+                Crear cuenta
+            </button>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label eyebrow" for="email">Tu email</label>
+                <input id="email" type="email" class="form-control" [class.is-invalid]="showError('email')"
+                    formControlName="email" placeholder="vos@correo.com" autocomplete="email" inputmode="email" />
+                @if (showError('email')) {
+                <p class="mensaje-campo">Escribí un email válido.</p>
+                }
+            </div>
+
+            <!-- Contraseña -->
+            <div class="mb-4">
+                <label class="form-label eyebrow" for="password">Contraseña</label>
+                <input id="password" type="password" class="form-control" [class.is-invalid]="showError('password')"
+                    formControlName="password" placeholder="mínimo 6 caracteres"
+                    [attr.autocomplete]="mode() === 'login' ? 'current-password' : 'new-password'" />
+                @if (showError('password')) {
+                <p class="mensaje-campo">La contraseña necesita al menos 6 caracteres.</p>
+                }
+            </div>
+
+            <!-- Error del servidor -->
+            @if (errorMessage()) {
+            <div class="alerta" role="alert">{{ errorMessage() }}</div>
+            }
+
+            <button type="submit" class="btn btn-senal w-100 boton-principal eyebrow" [disabled]="loading()">
+                @if (loading()) {
+                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                Entrando
+                } @else {
+                {{ submitLabel() }}
+                }
+            </button>
+        </form>
+
+        @if (mode() === 'login') {
+        <p class="nota-recuperacion">
+            Si te olvidaste la contraseña, te mando un link al email.
+        </p>
+        }
+    </main>
+
+    <!-- ==========================================================
+       PIE
+       ========================================================== -->
+    <footer class="login-pie mt-auto">
+        <p class="pie-explicacion">
+            Después vas a conectar tu cuenta de PlayStation. Son tres pasos y te
+            acompaño en cada uno.
+        </p>
+        <p class="pie-legal dato">
+            app no oficial · sin relación con Sony Interactive Entertainment
+        </p>
+    </footer>
+
+</div>

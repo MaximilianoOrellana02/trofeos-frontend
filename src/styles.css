@@ -1,0 +1,404 @@
+/* You can add global styles to this file, and also import other style files */
+/* ==========================================================================
+   SISTEMA DE DISEÑO — App de trofeos PSN
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TOKENS INDEPENDIENTES DEL TEMA
+   Espaciado, radios, tipografía y metales. No cambian entre claro y oscuro.
+   -------------------------------------------------------------------------- */
+:root {
+    /* --- Tipografía ---
+     TODO: reemplazar por las familias del sistema de diseño.
+     --font-display: para títulos y números grandes.
+     --font-ui: para interfaz y texto corrido.
+     --font-data: para porcentajes, fechas y conteos (idealmente tabular). */
+    --font-display: system-ui, sans-serif;
+    --font-ui: system-ui, sans-serif;
+    --font-data: ui-monospace, "SF Mono", monospace;
+
+    /* Escala tipográfica (mobile-first, base 16px) */
+    --fs-display: 2.25rem;
+    /* 36px - números héroe del dashboard */
+    --fs-h1: 1.625rem;
+    /* 26px */
+    --fs-h2: 1.25rem;
+    /* 20px */
+    --fs-h3: 1.0625rem;
+    /* 17px - títulos de tarjeta */
+    --fs-body: 0.9375rem;
+    /* 15px */
+    --fs-sm: 0.8125rem;
+    /* 13px - descripciones de trofeo */
+    --fs-xs: 0.6875rem;
+    /* 11px - etiquetas, eyebrows */
+
+    --lh-tight: 1.15;
+    --lh-normal: 1.45;
+
+    /* Escala de espaciado (base 4px) */
+    --sp-1: 0.25rem;
+    --sp-2: 0.5rem;
+    --sp-3: 0.75rem;
+    --sp-4: 1rem;
+    --sp-5: 1.5rem;
+    --sp-6: 2rem;
+    --sp-7: 3rem;
+
+    /* Radios */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-pill: 999px;
+
+    /* --- Metales de trofeo ---
+     PROPUESTA: la paleta original no los incluía. Ajustar si el sistema de
+     diseño define otros. Son los mismos en ambos temas para que un trofeo de
+     oro se lea igual siempre. */
+    --metal-bronze: #C87B45;
+    --metal-silver: #A9B6C7;
+    --metal-gold: #E3A93C;
+    --metal-platinum: #8FDCEF;
+
+    /* --- Rareza ---
+     PROPUESTA: los cuatro escalones que usa Sony. */
+    --rare-common: var(--humo);
+    --rare-rare: var(--senal);
+    --rare-very-rare: #8B5CF6;
+    --rare-ultra-rare: #F0A030;
+
+    /* Estados */
+    --state-success: #2FA36B;
+    --state-danger: #DC4E4E;
+
+    /* Alturas fijas */
+    --tabbar-height: 60px;
+    --header-height: 56px;
+}
+
+/* --------------------------------------------------------------------------
+   2. PALETA — TEMA CLARO
+   Se activa con <html data-bs-theme="light">
+   -------------------------------------------------------------------------- */
+[data-bs-theme="light"] {
+    --vitrina: #EDF1F8;
+    /* Fondo. Papel azulado, sin blanco puro. */
+    --estante: #FFFFFF;
+    /* Superficie de bloque agrupado. */
+    --bisel: #CBD7EA;
+    /* Líneas de 1px, la única separación. */
+    --tiza: #0C1425;
+    /* Texto principal y botón sólido. */
+    --humo: #5A6B88;
+    /* Texto secundario y etiquetas. */
+    --senal: #1D4FD0;
+    /* Azul accionable: botón, foco, sincronización. */
+
+    /* Derivados: sombra y overlays calculados sobre el tema */
+    --overlay: rgba(12, 20, 37, 0.45);
+    --senal-soft: rgba(29, 79, 208, 0.10);
+}
+
+/* --------------------------------------------------------------------------
+   3. PALETA — TEMA OSCURO (default)
+   Se activa con <html data-bs-theme="dark">
+   -------------------------------------------------------------------------- */
+[data-bs-theme="dark"] {
+    --vitrina: #080E1C;
+    /* Fondo. Azul noche, casi sin luz. */
+    --estante: #101A30;
+    /* Superficie de bloque agrupado. */
+    --bisel: #22314F;
+    /* Líneas de 1px, la única separación. */
+    --tiza: #EAF0FA;
+    /* Texto principal y botón sólido. */
+    --humo: #96A6C4;
+    /* Texto secundario y etiquetas. */
+    --senal: #3B78F0;
+    /* Azul accionable: botón, foco, sincronización. */
+
+    --overlay: rgba(4, 8, 16, 0.65);
+    --senal-soft: rgba(59, 120, 240, 0.14);
+}
+
+/* --------------------------------------------------------------------------
+   4. PUENTE CON BOOTSTRAP
+   Mapeamos nuestros tokens a las variables que Bootstrap 5.3 usa internamente,
+   para que sus componentes hereden el tema sin reescribirlos.
+   -------------------------------------------------------------------------- */
+[data-bs-theme="light"],
+[data-bs-theme="dark"] {
+    --bs-body-bg: var(--vitrina);
+    --bs-body-color: var(--tiza);
+    --bs-body-font-family: var(--font-ui);
+    --bs-body-font-size: var(--fs-body);
+    --bs-body-line-height: var(--lh-normal);
+
+    --bs-emphasis-color: var(--tiza);
+    --bs-secondary-color: var(--humo);
+    --bs-tertiary-color: var(--humo);
+
+    --bs-border-color: var(--bisel);
+    --bs-border-radius: var(--radius-md);
+    --bs-border-radius-sm: var(--radius-sm);
+    --bs-border-radius-lg: var(--radius-lg);
+
+    --bs-primary: var(--senal);
+    --bs-primary-rgb: 59, 120, 240;
+    --bs-link-color: var(--senal);
+    --bs-link-hover-color: var(--senal);
+
+    --bs-card-bg: var(--estante);
+    --bs-secondary-bg: var(--estante);
+    --bs-tertiary-bg: var(--estante);
+
+    --bs-focus-ring-color: var(--senal-soft);
+}
+
+/* --------------------------------------------------------------------------
+   5. BASE
+   -------------------------------------------------------------------------- */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    height: 100%;
+    overscroll-behavior-y: none;
+}
+
+body {
+    background-color: var(--vitrina);
+    color: var(--tiza);
+    font-family: var(--font-ui);
+    font-size: var(--fs-body);
+    line-height: var(--lh-normal);
+    /* Safe areas de Android/iOS: notch arriba, barra de gestos abajo */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-display);
+    line-height: var(--lh-tight);
+    color: var(--tiza);
+    margin: 0;
+}
+
+h1 {
+    font-size: var(--fs-h1);
+}
+
+h2 {
+    font-size: var(--fs-h2);
+}
+
+h3 {
+    font-size: var(--fs-h3);
+}
+
+/* Foco visible y consistente en toda la app */
+:focus-visible {
+    outline: 2px solid var(--senal);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. UTILIDADES DEL SISTEMA
+   -------------------------------------------------------------------------- */
+
+/* Superficie agrupada: la "tarjeta" del sistema. Sin sombra: la separación
+   es el bisel de 1px, como define la paleta. */
+.superficie {
+    background-color: var(--estante);
+    border: 1px solid var(--bisel);
+    border-radius: var(--radius-lg);
+}
+
+/* Etiqueta pequeña en mayúsculas con tracking, para encabezados de sección */
+.eyebrow {
+    font-family: var(--font-ui);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--humo);
+}
+
+/* Números: siempre tabulares para que no bailen al actualizarse */
+.dato {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+}
+
+.texto-secundario {
+    color: var(--humo);
+}
+
+/* Colores de metal, aplicables a íconos y bordes */
+.metal-bronze {
+    color: var(--metal-bronze);
+}
+
+.metal-silver {
+    color: var(--metal-silver);
+}
+
+.metal-gold {
+    color: var(--metal-gold);
+}
+
+.metal-platinum {
+    color: var(--metal-platinum);
+}
+
+/* Colores de rareza */
+.rareza-comun {
+    color: var(--rare-common);
+}
+
+.rareza-raro {
+    color: var(--rare-rare);
+}
+
+.rareza-muy-raro {
+    color: var(--rare-very-rare);
+}
+
+.rareza-ultra-raro {
+    color: var(--rare-ultra-rare);
+}
+
+/* Trofeo no obtenido: el ícono existe pero está apagado */
+.trofeo-bloqueado {
+    filter: grayscale(1);
+    opacity: 0.35;
+}
+
+/* --------------------------------------------------------------------------
+   7. BOTONES
+   Bootstrap 5.3 usa variables por componente, así que redefinimos esas.
+   -------------------------------------------------------------------------- */
+.btn {
+    --bs-btn-font-family: var(--font-ui);
+    --bs-btn-font-size: var(--fs-body);
+    --bs-btn-font-weight: 600;
+    --bs-btn-border-radius: var(--radius-md);
+    --bs-btn-padding-y: 0.65rem;
+    --bs-btn-padding-x: 1.1rem;
+}
+
+/* Acción principal: el azul Señal */
+.btn-senal {
+    --bs-btn-bg: var(--senal);
+    --bs-btn-border-color: var(--senal);
+    --bs-btn-color: #FFFFFF;
+    --bs-btn-hover-bg: var(--senal);
+    --bs-btn-hover-border-color: var(--senal);
+    --bs-btn-hover-color: #FFFFFF;
+    --bs-btn-active-bg: var(--senal);
+    --bs-btn-active-border-color: var(--senal);
+    --bs-btn-disabled-bg: var(--senal);
+    --bs-btn-disabled-border-color: var(--senal);
+    --bs-btn-disabled-color: #FFFFFF;
+}
+
+/* Acción sólida neutra: Tiza sobre Vitrina */
+.btn-tiza {
+    --bs-btn-bg: var(--tiza);
+    --bs-btn-border-color: var(--tiza);
+    --bs-btn-color: var(--vitrina);
+    --bs-btn-hover-bg: var(--tiza);
+    --bs-btn-hover-border-color: var(--tiza);
+    --bs-btn-hover-color: var(--vitrina);
+    --bs-btn-active-bg: var(--tiza);
+    --bs-btn-active-color: var(--vitrina);
+}
+
+/* Acción secundaria: solo bisel */
+.btn-bisel {
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--bisel);
+    --bs-btn-color: var(--tiza);
+    --bs-btn-hover-bg: var(--estante);
+    --bs-btn-hover-border-color: var(--bisel);
+    --bs-btn-hover-color: var(--tiza);
+}
+
+/* --------------------------------------------------------------------------
+   8. FORMULARIOS
+   -------------------------------------------------------------------------- */
+.form-control,
+.form-select {
+    background-color: var(--estante);
+    border-color: var(--bisel);
+    color: var(--tiza);
+    border-radius: var(--radius-md);
+    padding: 0.7rem 0.9rem;
+    font-size: var(--fs-body);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--estante);
+    border-color: var(--senal);
+    color: var(--tiza);
+    box-shadow: 0 0 0 3px var(--senal-soft);
+}
+
+.form-control::placeholder {
+    color: var(--humo);
+    opacity: 0.7;
+}
+
+.form-label {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--humo);
+    margin-bottom: var(--sp-2);
+}
+
+/* --------------------------------------------------------------------------
+   9. BARRA DE PROGRESO
+   -------------------------------------------------------------------------- */
+.progress {
+    --bs-progress-bg: var(--bisel);
+    --bs-progress-height: 4px;
+    --bs-progress-border-radius: var(--radius-pill);
+}
+
+.progress-bar {
+    background-color: var(--senal);
+    transition: width 0.4s ease;
+}
+
+/* Juego completado al 100%: el progreso se vuelve platino */
+.progress-bar.completo {
+    background-color: var(--metal-platinum);
+}
+
+/* --------------------------------------------------------------------------
+   10. SCROLL Y MOVIMIENTO
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

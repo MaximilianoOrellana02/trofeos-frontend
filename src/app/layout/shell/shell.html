@@ -1,0 +1,47 @@
+<div class="shell">
+
+    <!-- Contenido de la sección activa -->
+    <main class="contenido">
+        <router-outlet />
+    </main>
+
+    <!-- ==========================================================
+       TAB BAR
+       ========================================================== -->
+    <nav class="tabbar" aria-label="Secciones">
+        @for (tab of tabs; track tab.ruta) {
+        <a class="tab" [routerLink]="tab.ruta" routerLinkActive="tab--activo" #rla="routerLinkActive"
+            [attr.aria-current]="rla.isActive ? 'page' : null">
+            <!-- PLACEHOLDER: reemplazar cada <svg> por el ícono definitivo.
+             Mantener width/height 22 y stroke/fill en currentColor para que
+             hereden el color del estado activo. -->
+            <span class="tab-icono" aria-hidden="true">
+                @switch (tab.icono) {
+                @case ('inicio') {
+                <i class="fa-solid fa-house"></i>
+                }
+                @case ('juegos') {
+                <i class="fa-solid fa-gamepad"></i>
+                }
+                @case ('stats') {
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                    <rect x="4" y="12" width="4" height="8" rx="1" />
+                    <rect x="10" y="6" width="4" height="14" rx="1" />
+                    <rect x="16" y="9" width="4" height="11" rx="1" />
+                </svg>
+                }
+                @case ('amigos') {
+                <i class="fa-solid fa-user-group"></i>
+                }
+                @case ('ajustes') {
+                <i class="fa-solid fa-gear"></i>
+                }
+                }
+            </span>
+
+            <span class="tab-etiqueta eyebrow">{{ tab.etiqueta }}</span>
+        </a>
+        }
+    </nav>
+
+</div>

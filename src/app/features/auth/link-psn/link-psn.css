@@ -1,0 +1,222 @@
+:host {
+    display: block;
+    min-height: 100dvh;
+    background-color: var(--vitrina);
+}
+
+.vincular {
+    min-height: 100dvh;
+    max-width: 480px;
+    margin-inline: auto;
+    padding: var(--sp-5) var(--sp-5) var(--sp-4);
+}
+
+/* ==========================================================================
+   PROGRESO
+   ========================================================================== */
+
+.segmentos {
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-4);
+}
+
+.segmento {
+    flex: 1;
+    height: 3px;
+    border-radius: var(--radius-pill);
+    background-color: var(--bisel);
+    transition: background-color 0.3s ease;
+}
+
+.segmento--activo {
+    background-color: var(--tiza);
+}
+
+.paso-indicador {
+    margin-bottom: var(--sp-2);
+}
+
+/* ==========================================================================
+   CONTENIDO
+   ========================================================================== */
+
+.titulo {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--tiza);
+    margin-bottom: var(--sp-4);
+}
+
+.parrafo {
+    font-size: var(--fs-body);
+    color: var(--senal);
+    margin-bottom: var(--sp-5);
+}
+
+.tarjeta {
+    padding: var(--sp-4);
+    margin-bottom: var(--sp-3);
+}
+
+.tarjeta-titulo {
+    font-family: var(--font-ui);
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--tiza);
+    margin-bottom: var(--sp-2);
+}
+
+.tarjeta-texto {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: 0;
+}
+
+/* ==========================================================================
+   PASO 2 — Botones externos y ejemplo del código
+   ========================================================================== */
+
+.boton-externo {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    background-color: var(--tiza);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--vitrina);
+    padding: var(--sp-4);
+    margin-bottom: var(--sp-3);
+}
+
+.boton-externo:hover,
+.boton-externo:active {
+    background-color: var(--tiza);
+    color: var(--vitrina);
+}
+
+.orden {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    font-size: var(--fs-xs);
+    flex-shrink: 0;
+}
+
+.boton-externo .eyebrow {
+    color: inherit;
+    flex: 1;
+    text-align: left;
+}
+
+.flecha {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+/* Bloque de ejemplo: el fragmento a copiar se muestra seleccionado */
+.ejemplo {
+    background-color: var(--vitrina);
+    border: 1px solid var(--bisel);
+    border-radius: var(--radius-sm);
+    padding: var(--sp-3);
+    margin: 0 0 var(--sp-3);
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.ejemplo-fuera {
+    color: var(--humo);
+}
+
+.ejemplo-marcado {
+    background-color: var(--senal);
+    color: #ffffff;
+    border-radius: 2px;
+}
+
+/* ==========================================================================
+   PASO 3 — Campo y conexión
+   ========================================================================== */
+
+.campo-codigo {
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+    word-break: break-all;
+    resize: none;
+    margin-bottom: var(--sp-2);
+}
+
+.campo-codigo--error,
+.campo-codigo--error:focus {
+    border-color: var(--state-danger);
+    box-shadow: none;
+}
+
+.contador {
+    margin-bottom: var(--sp-5);
+}
+
+.contador-aviso,
+.contador-numero {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+}
+
+.contador-numero--ok {
+    color: var(--state-success);
+}
+
+.contador-numero--error {
+    color: var(--state-danger);
+}
+
+.alerta {
+    background-color: rgba(220, 78, 78, 0.1);
+    border: 1px solid var(--state-danger);
+    border-radius: var(--radius-md);
+    color: var(--tiza);
+    font-size: var(--fs-sm);
+    padding: var(--sp-3);
+    margin-bottom: var(--sp-4);
+}
+
+.boton-conectar {
+    padding-block: var(--sp-4);
+}
+
+.boton-conectar:disabled {
+    opacity: 0.45;
+}
+
+.nota-final {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    text-align: center;
+    margin: var(--sp-4) 0 0;
+}
+
+/* ==========================================================================
+   BARRA INFERIOR
+   ========================================================================== */
+
+.barra-inferior {
+    gap: var(--sp-3);
+    padding-top: var(--sp-5);
+}
+
+.boton-atras {
+    flex: 0 0 auto;
+    min-width: 92px;
+}
+
+.boton-avanzar {
+    flex: 1;
+}

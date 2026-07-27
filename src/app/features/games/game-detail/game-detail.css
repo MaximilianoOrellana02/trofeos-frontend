@@ -1,0 +1,438 @@
+:host {
+    display: block;
+}
+
+.detalle {
+    padding: var(--sp-4) 0 var(--sp-4);
+}
+
+.superior,
+.cabecera,
+.resumen,
+.tarjeta-platino,
+.filtros {
+    margin-inline: var(--sp-5);
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR
+   ========================================================================== */
+
+.volver,
+.compartir {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--humo);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.volver:hover,
+.compartir:hover {
+    color: var(--tiza);
+}
+
+.mensaje {
+    padding: var(--sp-6) var(--sp-5);
+    text-align: center;
+    color: var(--humo);
+    font-size: var(--fs-sm);
+}
+
+/* ==========================================================================
+   ENCABEZADO
+   ========================================================================== */
+
+.cabecera {
+    display: flex;
+    gap: var(--sp-4);
+    margin-top: var(--sp-5);
+}
+
+.portada {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.portada img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.portada-iniciales {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.cabecera-texto {
+    flex: 1;
+    min-width: 0;
+}
+
+.titulo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--tiza);
+    margin: 0 0 var(--sp-2);
+    text-transform: uppercase;
+}
+
+.linea-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    margin: 0 0 var(--sp-2);
+}
+
+.plataforma {
+    font-size: 0.625rem;
+    letter-spacing: 0.06em;
+    color: var(--humo);
+    border: 1px solid var(--bisel);
+    border-radius: var(--radius-sm);
+    padding: 2px var(--sp-2);
+}
+
+.jugado {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+}
+
+.progreso {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--tiza);
+    margin: 0;
+}
+
+.progreso-signo {
+    font-size: 1.125rem;
+}
+
+.progreso-fraccion {
+    font-family: var(--font-data);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    color: var(--humo);
+    letter-spacing: 0;
+}
+
+/* ==========================================================================
+   BARRA SEGMENTADA
+   ========================================================================== */
+
+.resumen {
+    margin-top: var(--sp-5);
+}
+
+.barra {
+    display: flex;
+    gap: 2px;
+    height: 6px;
+    margin-bottom: var(--sp-2);
+}
+
+.seg {
+    display: block;
+    height: 100%;
+    border-radius: 1px;
+    background-image: repeating-linear-gradient(115deg,
+            rgba(255, 255, 255, 0.25) 0 1px,
+            transparent 1px 4px);
+}
+
+.seg--bronze {
+    background-color: var(--metal-bronze);
+}
+
+.seg--silver {
+    background-color: var(--metal-silver);
+}
+
+.seg--gold {
+    background-color: var(--metal-gold);
+}
+
+.seg--platinum {
+    background-color: var(--metal-platinum);
+}
+
+.seg--vacio {
+    background-color: var(--bisel);
+    background-image: none;
+}
+
+.resumen-texto {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+}
+
+/* ==========================================================================
+   TARJETA DEL PLATINO
+   ========================================================================== */
+
+.tarjeta-platino {
+    margin-top: var(--sp-5);
+    padding: var(--sp-4);
+    border-color: var(--senal);
+}
+
+.platino-fila {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+}
+
+/* PLACEHOLDER: aproximación en CSS del platino */
+.platino-esfera {
+    display: block;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--metal-platinum);
+    background-image:
+        repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.3) 0 1px, transparent 1px 4px),
+        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.5), transparent 55%);
+    background-blend-mode: overlay, screen;
+}
+
+.platino-texto {
+    flex: 1;
+    min-width: 0;
+}
+
+.platino-nombre {
+    font-family: var(--font-ui);
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    color: var(--tiza);
+    margin: 0 0 var(--sp-1);
+    text-transform: uppercase;
+}
+
+.platino-detalle {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: 0;
+}
+
+.platino-rareza {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.platino-numero {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--metal-platinum);
+    margin: 0 0 var(--sp-1);
+}
+
+.platino-nivel {
+    color: var(--metal-platinum);
+    margin: 0;
+    font-size: 0.5625rem;
+}
+
+.platino-pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    margin-top: var(--sp-4);
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--bisel);
+}
+
+.platino-consejo {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: 0;
+}
+
+.platino-pie .btn {
+    --bs-btn-font-size: var(--fs-xs);
+    --bs-btn-padding-y: 0.6rem;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   FILTROS
+   ========================================================================== */
+
+.filtros {
+    display: flex;
+    gap: var(--sp-2);
+    margin-top: var(--sp-5);
+    margin-bottom: var(--sp-2);
+}
+
+.filtro {
+    flex: 1;
+    background: none;
+    border: 1px solid var(--bisel);
+    border-radius: var(--radius-sm);
+    color: var(--humo);
+    padding: var(--sp-3) var(--sp-2);
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.filtro--activo {
+    color: var(--tiza);
+    border-color: var(--senal);
+    background-color: var(--senal-soft);
+}
+
+/* ==========================================================================
+   LISTA DE TROFEOS
+   ========================================================================== */
+
+.lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.fila {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    padding: var(--sp-4) var(--sp-5);
+    border-bottom: 1px solid var(--bisel);
+}
+
+.trofeo-icono {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background-color: var(--estante);
+    border: 1px solid var(--bisel);
+}
+
+.trofeo-icono img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Trofeo oculto: no mostramos su ícono, solo la trama */
+.trofeo-icono--velado {
+    background-image: repeating-linear-gradient(135deg,
+            var(--bisel) 0 1px,
+            transparent 1px 6px);
+}
+
+.interrogante {
+    font-size: var(--fs-body);
+    font-weight: 700;
+    color: var(--humo);
+    z-index: 2;
+}
+
+.trofeo-texto {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+}
+
+.trofeo-nombre {
+    font-size: var(--fs-body);
+    font-weight: 700;
+    color: var(--tiza);
+}
+
+.trofeo-desc {
+    font-size: var(--fs-sm);
+    color: var(--senal);
+}
+
+.trofeo-rareza {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-2);
+    margin-top: var(--sp-1);
+}
+
+.rareza-numero {
+    font-size: var(--fs-body);
+    font-weight: 700;
+}
+
+.rareza-nivel {
+    font-size: 0.5625rem;
+    color: var(--humo);
+}
+
+.trofeo-derecha {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--sp-4);
+    flex-shrink: 0;
+}
+
+/* PLACEHOLDER: aproximación en CSS de cada metal */
+.metal-punto {
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-image:
+        repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.3) 0 1px, transparent 1px 4px),
+        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.5), transparent 55%);
+    background-blend-mode: overlay, screen;
+}
+
+.metal-punto--apagado {
+    filter: grayscale(1);
+    opacity: 0.4;
+}
+
+.trofeo-fecha {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    white-space: nowrap;
+}
+
+/* Fila de trofeo no obtenido: todo se apaga menos la rareza */
+.fila--bloqueada .trofeo-nombre,
+.fila--bloqueada .trofeo-desc {
+    color: var(--humo);
+}
+
+.fila--bloqueada .trofeo-icono img {
+    filter: grayscale(1);
+    opacity: 0.4;
+}

@@ -1,0 +1,276 @@
+:host {
+    display: block;
+}
+
+.juegos {
+    padding: var(--sp-5) 0 var(--sp-4);
+}
+
+/* Los bloques superiores respiran con margen lateral;
+   las filas de la lista van de borde a borde. */
+.cabecera,
+.buscador,
+.orden {
+    padding-inline: var(--sp-5);
+}
+
+/* ==========================================================================
+   ENCABEZADO
+   ========================================================================== */
+
+.titulo {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--tiza);
+    margin: 0;
+}
+
+.resumen {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: 0;
+    text-align: right;
+}
+
+/* ==========================================================================
+   BUSCADOR
+   ========================================================================== */
+
+.buscador {
+    position: relative;
+    margin-top: var(--sp-4);
+}
+
+.buscador-icono {
+    position: absolute;
+    left: calc(var(--sp-5) + var(--sp-3));
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    color: var(--humo);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.buscador-campo {
+    padding-left: calc(var(--sp-3) + 26px);
+    font-size: var(--fs-body);
+}
+
+/* Saca la X nativa del input type=search */
+.buscador-campo::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+/* ==========================================================================
+   FILTROS
+   ========================================================================== */
+
+.filtros {
+    display: flex;
+    gap: var(--sp-2);
+    margin-top: var(--sp-4);
+    padding-inline: var(--sp-5);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.filtros::-webkit-scrollbar {
+    display: none;
+}
+
+.chip {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid var(--bisel);
+    border-radius: var(--radius-sm);
+    color: var(--humo);
+    padding: var(--sp-2) var(--sp-3);
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.chip--activo {
+    color: var(--tiza);
+    border-color: var(--tiza);
+}
+
+/* ==========================================================================
+   ORDEN
+   ========================================================================== */
+
+.orden {
+    gap: var(--sp-3);
+    margin-top: var(--sp-4);
+    margin-bottom: var(--sp-2);
+}
+
+.orden-label {
+    color: var(--humo);
+}
+
+.orden-opcion {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.orden-opcion--activa {
+    color: var(--tiza);
+    border-bottom-color: var(--tiza);
+}
+
+/* ==========================================================================
+   LISTA
+   ========================================================================== */
+
+.mensaje {
+    padding: var(--sp-6) var(--sp-5);
+    text-align: center;
+    color: var(--humo);
+    font-size: var(--fs-sm);
+}
+
+.lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.fila {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-5);
+    border-bottom: 1px solid var(--bisel);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.fila:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* --- Ícono --- */
+.icono {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.icono img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.icono-iniciales {
+    font-size: var(--fs-body);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* --- Centro --- */
+.centro {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+}
+
+.nombre {
+    font-size: var(--fs-body);
+    font-weight: 700;
+    color: var(--tiza);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.barra {
+    display: block;
+    height: 2px;
+    border-radius: var(--radius-pill);
+    background-color: var(--bisel);
+    overflow: hidden;
+}
+
+.barra-relleno {
+    display: block;
+    height: 100%;
+    background-color: var(--senal);
+    border-radius: inherit;
+}
+
+/* Al 100% el progreso se vuelve platino */
+.barra-relleno--completo {
+    background-color: var(--metal-platinum);
+}
+
+.meta {
+    font-size: var(--fs-sm);
+    color: var(--senal);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* --- Derecha --- */
+.derecha {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--sp-2);
+    flex-shrink: 0;
+}
+
+.plataforma {
+    font-size: 0.625rem;
+    letter-spacing: 0.06em;
+    color: var(--humo);
+    border: 1px solid var(--bisel);
+    border-radius: var(--radius-sm);
+    padding: 2px var(--sp-2);
+    white-space: nowrap;
+}
+
+.derecha-abajo {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+}
+
+.porcentaje {
+    font-size: var(--fs-sm);
+    color: var(--senal);
+}
+
+/* PLACEHOLDER: aproximación en CSS del platino */
+.platino {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--metal-platinum);
+    background-image:
+        repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.3) 0 1px, transparent 1px 4px),
+        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.5), transparent 55%);
+    background-blend-mode: overlay, screen;
+}

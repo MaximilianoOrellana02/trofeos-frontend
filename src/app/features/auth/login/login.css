@@ -1,0 +1,188 @@
+:host {
+    display: block;
+    min-height: 100dvh;
+    background-color: var(--vitrina);
+}
+
+.login-pantalla {
+    min-height: 100dvh;
+    max-width: 480px;
+    margin-inline: auto;
+    padding: var(--sp-6) var(--sp-5) var(--sp-5);
+}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+
+.login-hero {
+    margin-bottom: var(--sp-6);
+}
+
+/* --- Los cuatro metales ---
+   PLACEHOLDER: aproximación en CSS del metal cepillado. Cuando tengas los SVG,
+   borrá los gradientes y dejá solo los tamaños. */
+.metales {
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-5);
+}
+
+.metal {
+    display: block;
+    border-radius: 50%;
+    background-image:
+        repeating-linear-gradient(115deg,
+            rgba(255, 255, 255, 0.28) 0 1px,
+            transparent 1px 4px),
+        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.5), transparent 55%);
+    background-blend-mode: overlay, screen;
+}
+
+/* Los tamaños codifican la jerarquía: el platino manda. */
+.metal--platino {
+    width: 56px;
+    height: 56px;
+    background-color: var(--metal-platinum);
+}
+
+.metal--oro {
+    width: 46px;
+    height: 46px;
+    background-color: var(--metal-gold);
+}
+
+.metal--plata {
+    width: 38px;
+    height: 38px;
+    background-color: var(--metal-silver);
+}
+
+.metal--bronce {
+    width: 28px;
+    height: 28px;
+    background-color: var(--metal-bronze);
+}
+
+/* --- Titular --- */
+.hero-titulo {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--tiza);
+    margin-bottom: var(--sp-4);
+}
+
+/* Las partes en Señal marcan el ritmo de la frase, no son decorado */
+.hero-titulo em {
+    font-style: normal;
+    color: var(--senal);
+}
+
+.hero-bajada {
+    font-size: var(--fs-body);
+    color: var(--humo);
+    margin: 0;
+}
+
+.hero-bajada .dato {
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   TABS
+   ========================================================================== */
+
+.tabs {
+    border-bottom: 1px solid var(--bisel);
+    margin-bottom: var(--sp-5);
+}
+
+.tab {
+    flex: 1;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: var(--sp-3) 0;
+    color: var(--humo);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    /* Compensa el borde inferior del contenedor */
+    margin-bottom: -1px;
+}
+
+.tab--activo {
+    color: var(--tiza);
+    border-bottom-color: var(--senal);
+}
+
+/* ==========================================================================
+   FORMULARIO
+   ========================================================================== */
+
+.form-control {
+    font-family: var(--font-data);
+}
+
+.form-control.is-invalid {
+    border-color: var(--state-danger);
+    background-image: none;
+    /* saca el ícono de exclamación de Bootstrap */
+}
+
+.form-control.is-invalid:focus {
+    border-color: var(--state-danger);
+    box-shadow: 0 0 0 3px rgba(220, 78, 78, 0.15);
+}
+
+.mensaje-campo {
+    font-size: var(--fs-sm);
+    color: var(--state-danger);
+    margin: var(--sp-2) 0 0;
+}
+
+.alerta {
+    background-color: rgba(220, 78, 78, 0.10);
+    border: 1px solid var(--state-danger);
+    border-radius: var(--radius-md);
+    color: var(--tiza);
+    font-size: var(--fs-sm);
+    padding: var(--sp-3);
+    margin-bottom: var(--sp-4);
+}
+
+.boton-principal {
+    padding-block: var(--sp-4);
+}
+
+.boton-principal:disabled {
+    opacity: 0.6;
+}
+
+.nota-recuperacion {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: var(--sp-4) 0 0;
+}
+
+/* ==========================================================================
+   PIE
+   ========================================================================== */
+
+.login-pie {
+    padding-top: var(--sp-7);
+}
+
+.pie-explicacion {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin-bottom: var(--sp-2);
+}
+
+.pie-legal {
+    font-size: var(--fs-xs);
+    color: var(--humo);
+    opacity: 0.65;
+    margin: 0;
+}

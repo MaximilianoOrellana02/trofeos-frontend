@@ -1,0 +1,181 @@
+<div class="dashboard">
+
+    @if (cargando() && !stats()) {
+    <p class="cargando eyebrow">Cargando tus trofeos</p>
+    }
+
+    @if (error() && !stats()) {
+    <div class="alerta" role="alert">{{ error() }}</div>
+    }
+
+    @if (stats(); as s) {
+
+    <!-- ==========================================================
+         PERFIL
+         ========================================================== -->
+    <header class="perfil d-flex align-items-center">
+        <div class="avatar">
+            @if (s.profile.avatarUrl) {
+            <img [src]="s.profile.avatarUrl" [alt]="s.profile.onlineId ?? 'Tu avatar'"
+                (error)="ocultarImagen($event)" />
+            }
+            <span class="avatar-iniciales dato">
+                {{ iniciales(s.profile.onlineId ?? 'PS') }}
+            </span>
+        </div>
+
+        <div class="perfil-datos">
+            <h1 class="perfil-nombre">{{ s.profile.onlineId ?? 'Tu cuenta' }}</h1>
+            <p class="perfil-meta dato">
+                @if (s.profile.trophyLevel) {
+                Nivel {{ s.profile.trophyLevel }} ·
+                }
+                @if (sincronizando()) {
+                sincronizando…
+                } @else if (s.profile.lastFullSyncAt) {
+                sincronizado {{ s.profile.lastFullSyncAt | tiempoRelativo }}
+                } @else {
+                sin sincronizar
+                }
+            </p>
+        </div>
+
+        <button type="button" class="btn btn-tiza eyebrow boton-sync" [disabled]="sincronizando()"
+            (click)="sincronizar()">
+            {{ sincronizando() ? 'Sincronizando' : 'Sincronizar' }}
+        </button>
+    </header>
+
+    @if (avisoSync()) {
+    <p class="aviso-sync" role="status">{{ avisoSync() }}</p>
+    }
+
+    <hr class="separador" />
+
+    <!-- ==========================================================
+         COMPLETITUD
+         ========================================================== -->
+    <section class="completitud">
+        <div class="completitud-fila d-flex align-items-start justify-content-between">
+            <p class="completitud-numero dato">
+                {{ completitud() | number: '1.1-1' }}<span class="completitud-signo">%</span>
+            </p>
+
+            <div class="completitud-detalle">
+                <p class="eyebrow mb-1">Completitud</p>
+                <p class="completitud-juegos dato">
+                    {{ s.totals.games | number }} juegos ·
+                    {{ s.totals.completedGames | number }} al 100%
+                </p>
+            </div>
+        </div>
+
+        <div class="progress completitud-barra">
+            <div class="progress-bar" [class.completo]="completitud() >= 100" [style.width.%]="completitud()"></div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         METALES
+         ========================================================== -->
+    <section class="metales">
+        @for (metal of metales(); track metal.tipo) {
+        <div class="superficie metal-card">
+            <!-- PLACEHOLDER: reemplazar por el SVG del metal correspondiente -->
+            <span class="metal-esfera" [class]="'esfera--' + metal.tipo" aria-hidden="true"></span>
+            <p class="metal-cantidad dato">{{ metal.cantidad | number }}</p>
+            <p class="eyebrow metal-etiqueta">{{ etiquetaMetal(metal.tipo) }}</p>
+        </div>
+        }
+    </section>
+
+    <!-- ==========================================================
+         ÚLTIMOS TROFEOS
+         ========================================================== -->
+    @if (s.recentTrophies && s.recentTrophies.length) {
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Lo último que ganaste</h2>
+
+        <ul class="lista">
+            @for (t of s.recentTrophies; track $index) {
+            <li class="fila">
+                <span class="fila-icono">
+                    @if (t.gameIconUrl) {
+                    <img [src]="t.gameIconUrl" [alt]="t.gameName" (error)="ocultarImagen($event)" />
+                    }
+                    <span class="fila-iniciales dato">{{ iniciales(t.gameName) }}</span>
+                </span>
+
+                <span class="fila-texto">
+                    <span class="fila-nombre">{{ t.name }}</span>
+                    <span class="fila-juego">{{ t.gameName }}</span>
+                </span>
+
+                <span class="fila-derecha">
+                    <span class="metal-punto" [class]="'esfera--' + t.type" [attr.title]="etiquetaMetal(t.type)"></span>
+                    <span class="fila-fecha dato">{{ t.earnedAt | tiempoRelativo }}</span>
+                </span>
+            </li>
+            }
+        </ul>
+    </section>
+    }
+
+    <!-- ==========================================================
+         TROFEOS MÁS RAROS
+         ========================================================== -->
+    @if (s.rarestTrophies && s.rarestTrophies.length) {
+    <section class="bloque">
+        <div class="superficie tarjeta-raros">
+            <h2 class="eyebrow bloque-titulo">Tus trofeos más raros</h2>
+            <p class="tarjeta-explicacion">
+                El número es el porcentaje de jugadores que lo tiene. Menos es más
+                difícil.
+            </p>
+
+            <ul class="lista lista--raros">
+                @for (t of s.rarestTrophies; track $index) {
+                <li class="fila">
+                    <span class="fila-icono">
+                        @if (t.iconUrl) {
+                        <img [src]="t.iconUrl" [alt]="t.name" (error)="ocultarImagen($event)" />
+                        }
+                        <span class="fila-iniciales dato">{{ iniciales(t.gameName) }}</span>
+                    </span>
+
+                    <span class="fila-texto">
+                        <span class="fila-nombre">{{ t.name }}</span>
+                        <span class="fila-juego">{{ t.gameName }}</span>
+                    </span>
+
+                    <span class="fila-derecha">
+                        <span class="fila-rareza dato" [class]="claseRareza(t.rarity)">
+                            {{ t.rarity | number: '1.1-1' }}%
+                        </span>
+                    </span>
+                </li>
+                }
+            </ul>
+        </div>
+    </section>
+    }
+
+    <!-- ==========================================================
+         ESTADO VACÍO
+         ========================================================== -->
+    @if (!s.totals.games) {
+    <section class="vacio superficie">
+        <h2 class="vacio-titulo">Todavía no hay nada acá</h2>
+        <p class="vacio-texto">
+            Sincronizá para traer tus juegos y trofeos desde PlayStation. La
+            primera vez tarda unos minutos.
+        </p>
+        <button type="button" class="btn btn-senal eyebrow" (click)="sincronizar()">
+            Sincronizar ahora
+        </button>
+    </section>
+    }
+
+    }
+
+</div>

@@ -1,0 +1,354 @@
+:host {
+    display: block;
+}
+
+.dashboard {
+    padding: var(--sp-5) var(--sp-5) var(--sp-4);
+}
+
+.cargando {
+    padding-block: var(--sp-6);
+    text-align: center;
+}
+
+.alerta {
+    background-color: rgba(220, 78, 78, 0.1);
+    border: 1px solid var(--state-danger);
+    border-radius: var(--radius-md);
+    color: var(--tiza);
+    font-size: var(--fs-sm);
+    padding: var(--sp-3);
+}
+
+/* ==========================================================================
+   PERFIL
+   ========================================================================== */
+
+.perfil {
+    gap: var(--sp-3);
+}
+
+.avatar {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--estante);
+    border: 1px solid var(--bisel);
+}
+
+.avatar img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Queda debajo de la imagen: si la imagen falla, aparece esto */
+.avatar-iniciales {
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--humo);
+}
+
+.perfil-datos {
+    flex: 1;
+    min-width: 0;
+}
+
+.perfil-nombre {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    color: var(--tiza);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.perfil-meta {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: 0;
+}
+
+.boton-sync {
+    --bs-btn-font-size: var(--fs-xs);
+    --bs-btn-padding-y: 0.5rem;
+    --bs-btn-padding-x: 0.85rem;
+    flex-shrink: 0;
+}
+
+.aviso-sync {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: var(--sp-3) 0 0;
+}
+
+.separador {
+    border: 0;
+    border-top: 1px solid var(--bisel);
+    opacity: 1;
+    margin: var(--sp-5) 0;
+}
+
+/* ==========================================================================
+   COMPLETITUD
+   ========================================================================== */
+
+.completitud-fila {
+    margin-bottom: var(--sp-4);
+    gap: var(--sp-4);
+}
+
+.completitud-numero {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--tiza);
+    margin: 0;
+}
+
+.completitud-signo {
+    font-size: 1.5rem;
+    letter-spacing: 0;
+}
+
+.completitud-detalle {
+    text-align: right;
+    padding-top: var(--sp-1);
+}
+
+.completitud-juegos {
+    font-size: var(--fs-sm);
+    color: var(--senal);
+    margin: 0;
+}
+
+.completitud-barra {
+    --bs-progress-bg: var(--bisel);
+    --bs-progress-height: 3px;
+    margin-bottom: var(--sp-5);
+}
+
+.completitud-barra .progress-bar {
+    background-color: var(--tiza);
+}
+
+/* ==========================================================================
+   METALES
+   ========================================================================== */
+
+.metales {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-6);
+}
+
+.metal-card {
+    padding: var(--sp-3) var(--sp-2);
+    text-align: center;
+}
+
+/* PLACEHOLDER: aproximación en CSS. Reemplazar por los SVG de cada metal. */
+.metal-esfera,
+.metal-punto {
+    display: inline-block;
+    border-radius: 50%;
+    background-image:
+        repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.3) 0 1px, transparent 1px 4px),
+        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.5), transparent 55%);
+    background-blend-mode: overlay, screen;
+}
+
+.metal-esfera {
+    width: 26px;
+    height: 26px;
+    margin-bottom: var(--sp-2);
+}
+
+.metal-punto {
+    width: 14px;
+    height: 14px;
+}
+
+.esfera--platinum {
+    background-color: var(--metal-platinum);
+}
+
+.esfera--gold {
+    background-color: var(--metal-gold);
+}
+
+.esfera--silver {
+    background-color: var(--metal-silver);
+}
+
+.esfera--bronze {
+    background-color: var(--metal-bronze);
+}
+
+.metal-cantidad {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--tiza);
+    margin: 0 0 var(--sp-1);
+}
+
+.metal-etiqueta {
+    font-size: 0.5625rem;
+    margin: 0;
+}
+
+/* ==========================================================================
+   BLOQUES DE LISTA
+   ========================================================================== */
+
+.bloque {
+    margin-bottom: var(--sp-6);
+}
+
+.bloque-titulo {
+    margin-bottom: var(--sp-3);
+}
+
+.lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.fila {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding-block: var(--sp-3);
+    border-bottom: 1px solid var(--bisel);
+}
+
+.fila:last-child {
+    border-bottom: none;
+}
+
+.fila-icono {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background-color: var(--estante);
+    border: 1px solid var(--bisel);
+}
+
+.fila-icono img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.fila-iniciales {
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: var(--humo);
+}
+
+.fila-texto {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fila-nombre {
+    font-size: var(--fs-body);
+    font-weight: 700;
+    color: var(--tiza);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fila-juego {
+    font-size: var(--fs-sm);
+    color: var(--senal);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fila-derecha {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--sp-1);
+    flex-shrink: 0;
+}
+
+.fila-fecha,
+.fila-rareza {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+}
+
+.fila-rareza {
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   TARJETA DE RAROS
+   ========================================================================== */
+
+.tarjeta-raros {
+    padding: var(--sp-4);
+}
+
+.tarjeta-explicacion {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin-bottom: var(--sp-2);
+}
+
+.lista--raros .fila:first-child {
+    padding-top: var(--sp-2);
+}
+
+/* ==========================================================================
+   ESTADO VACÍO
+   ========================================================================== */
+
+.vacio {
+    padding: var(--sp-6) var(--sp-4);
+    text-align: center;
+}
+
+.vacio-titulo {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    color: var(--tiza);
+    margin-bottom: var(--sp-3);
+}
+
+.vacio-texto {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin-bottom: var(--sp-4);
+}

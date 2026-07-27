@@ -1,0 +1,202 @@
+<div class="ajustes">
+
+    <h1 class="titulo">Ajustes</h1>
+
+    <!-- ==========================================================
+       TU CUENTA
+       ========================================================== -->
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Tu cuenta</h2>
+
+        <div class="superficie">
+            <div class="fila-cuenta">
+                <span class="avatar">
+                    @if (auth.currentUser()?.psnAvatarUrl) {
+                    <img [src]="auth.currentUser()!.psnAvatarUrl" alt="" (error)="ocultarImagen($event)" />
+                    }
+                    <span class="avatar-iniciales dato">
+                        {{ iniciales(auth.currentUser()?.psnOnlineId) }}
+                    </span>
+                </span>
+                <span class="fila-cuenta-texto">
+                    <span class="nombre">{{ auth.currentUser()?.psnOnlineId ?? 'Tu cuenta' }}</span>
+                    <span class="email">{{ auth.currentUser()?.email }}</span>
+                </span>
+            </div>
+
+            <!-- PENDIENTE: sin endpoint en el backend todavía -->
+            <button type="button" class="opcion" disabled>
+                <span>Cambiar contraseña</span>
+                <span class="opcion-flecha">→</span>
+            </button>
+
+            <button type="button" class="opcion opcion--ultima" disabled>
+                <span>Cambiar mi email</span>
+                <span class="opcion-valor dato">{{ auth.currentUser()?.email }}</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+       CUENTA DE PLAYSTATION
+       ========================================================== -->
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Cuenta de PlayStation</h2>
+
+        <div class="superficie tarjeta-psn">
+            <div class="psn-fila">
+                <span class="psn-titulo">
+                    {{ vencido() ? 'Código vencido' : 'Conectada' }}
+                </span>
+                <span class="psn-punto" [class.psn-punto--alerta]="vencido()"></span>
+            </div>
+
+            <p class="psn-texto">
+                @if (vencido()) {
+                El código de acceso venció. Repetí los tres pasos para seguir
+                trayendo tus trofeos.
+                } @else {
+                Tu cuenta {{ auth.currentUser()?.psnOnlineId }} está conectada y
+                trayendo trofeos sin problemas.
+                }
+            </p>
+
+            <div class="psn-progreso">
+                <div class="progress">
+                    <div class="progress-bar" [class.progress-bar--alerta]="vencido()"
+                        [style.width.%]="progresoVencimiento()"></div>
+                </div>
+                <span class="psn-dias dato">
+                    @if (diasRestantes(); as dias) {
+                    vence en {{ dias }} días
+                    } @else {
+                    vencido
+                    }
+                </span>
+            </div>
+
+            <a routerLink="/vincular" class="renovar eyebrow">
+                Renovar el código ahora
+                <span class="renovar-flecha">→</span>
+            </a>
+        </div>
+
+        <p class="nota-ayuda">Tocá el botón para ver cómo se ve cuando el código vence.</p>
+    </section>
+
+    <!-- ==========================================================
+       APARIENCIA
+       ========================================================== -->
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Apariencia</h2>
+
+        <div class="superficie">
+            <div class="tema-fila">
+                <span class="tema-nombre">Tema</span>
+                <span class="tema-nota dato">oscuro por defecto</span>
+            </div>
+
+            <div class="tema-botones">
+                <button type="button" class="tema-boton eyebrow" [class.tema-boton--activo]="theme.tema() === 'dark'"
+                    (click)="elegirTema('dark')">Oscuro</button>
+
+                <button type="button" class="tema-boton eyebrow" [class.tema-boton--activo]="theme.tema() === 'light'"
+                    (click)="elegirTema('light')">Claro</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+       SINCRONIZACIÓN
+       ========================================================== -->
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Sincronización</h2>
+
+        <div class="superficie">
+            <!-- PENDIENTE: requiere Service Worker + Background Sync. No disponible en web. -->
+            <div class="toggle-fila">
+                <span class="toggle-texto">
+                    <span class="toggle-nombre">
+                        Sincronizar sola
+                        <span class="badge-proximamente eyebrow">Próximamente</span>
+                    </span>
+                    <span class="toggle-detalle">Una vez por día, con wifi y cargando.</span>
+                </span>
+                <span class="toggle-switch toggle-switch--deshabilitado" aria-disabled="true"></span>
+            </div>
+
+            <!-- PENDIENTE: requiere Web Push (Service Worker + VAPID). No disponible en web. -->
+            <div class="toggle-fila">
+                <span class="toggle-texto">
+                    <span class="toggle-nombre">
+                        Avisarme de trofeos nuevos
+                        <span class="badge-proximamente eyebrow">Próximamente</span>
+                    </span>
+                    <span class="toggle-detalle">
+                        Notificación cuando aparece uno, y una distinta si es platino.
+                    </span>
+                </span>
+                <span class="toggle-switch toggle-switch--deshabilitado" aria-disabled="true"></span>
+            </div>
+
+            <div class="fila-simple">
+                <span>Última sincronización</span>
+                <span class="dato">
+                    @if (auth.currentUser()?.lastFullSyncAt) {
+                    {{ auth.currentUser()!.lastFullSyncAt }}
+                    } @else {
+                    nunca
+                    }
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+       DATOS
+       ========================================================== -->
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Datos</h2>
+
+        <div class="superficie">
+            <!-- PENDIENTE: el navegador no expone el tamaño de la caché de imágenes -->
+            <button type="button" class="opcion" disabled>
+                <span>Borrar los íconos guardados</span>
+                <span class="opcion-valor dato">no disponible</span>
+            </button>
+
+            @if (!confirmandoSalida()) {
+            <button type="button" class="opcion opcion--ultima opcion--peligro" (click)="pedirConfirmacionSalida()">
+                <span>Cerrar sesión</span>
+                <span class="opcion-flecha">→</span>
+            </button>
+            } @else {
+            <div class="confirmacion opcion--ultima">
+                <p class="confirmacion-texto">¿Cerrar sesión en este dispositivo?</p>
+                <div class="confirmacion-botones">
+                    <button type="button" class="btn btn-bisel eyebrow" (click)="cancelarSalida()">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-tiza eyebrow" (click)="confirmarSalida()">
+                        Sí, cerrar sesión
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+
+    <!-- ==========================================================
+       PIE
+       ========================================================== -->
+    <footer class="pie">
+        <p class="pie-version dato">
+            versión 1.0.0
+            @if (totalTrofeos(); as total) {
+            · {{ total | number }} trofeos guardados
+            }
+        </p>
+        <p class="pie-legal">app no oficial · sin relación con Sony Interactive Entertainment</p>
+    </footer>
+
+</div>
