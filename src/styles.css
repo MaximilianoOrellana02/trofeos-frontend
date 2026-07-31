@@ -162,21 +162,21 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-html,
-body {
-    height: 100%;
-    overscroll-behavior-y: none;
+html {
+    min-height: 100%;
+    background-color: var(--vitrina);
 }
 
 body {
+    min-height: 100%;
     background-color: var(--vitrina);
     color: var(--tiza);
     font-family: var(--font-ui);
     font-size: var(--fs-body);
     line-height: var(--lh-normal);
-    /* Safe areas de Android/iOS: notch arriba, barra de gestos abajo */
+    -webkit-text-size-adjust: 100%;
+    /* Safe area superior para el notch de iOS */
     padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
 }
 
 h1,
