@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://tu-backend.onrender.com',
+    apiUrl: 'https://trofeos-backend.onrender.com',
 };
