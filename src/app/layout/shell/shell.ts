@@ -30,4 +30,13 @@ export class Shell {
     { ruta: '/ajustes', etiqueta: 'Ajustes', icono: 'ajustes' },
   ];
 
+  onTabTouch(): void {
+    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+      try {
+        navigator.vibrate(12);
+      } catch {
+        // Ignorar si el dispositivo o navegador bloquea la vibración
+      }
+    }
+  }
 }

@@ -11,7 +11,7 @@
     <nav class="tabbar" aria-label="Secciones">
         @for (tab of tabs; track tab.ruta) {
         <a class="tab" [routerLink]="tab.ruta" routerLinkActive="tab--activo" #rla="routerLinkActive"
-            [attr.aria-current]="rla.isActive ? 'page' : null">
+            [attr.aria-current]="rla.isActive ? 'page' : null" (click)="onTabTouch()">
             <!-- PLACEHOLDER: reemplazar cada <svg> por el ícono definitivo.
              Mantener width/height 22 y stroke/fill en currentColor para que
              hereden el color del estado activo. -->
