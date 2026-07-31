@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { Router } from "@angular/router";
-import { environment } from "../../../environments/environment.development";
+import { environment } from "../../../environments/environment";
 import { AuthResponse, CredentialsRequest, CurrentUser, PsnLinkRequest, PsnLinkResponse } from "../models/api.models";
 import { firstValueFrom } from "rxjs";
 

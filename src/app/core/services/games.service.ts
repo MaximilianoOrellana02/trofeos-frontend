@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment.development";
+import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
 import { GameList } from "../../features/games/game-list/game-list";
 import { GameDetailResponse, GameListItem, GoalGame, GuideResponse, SuggestionsResponse } from "../models/api.models";
