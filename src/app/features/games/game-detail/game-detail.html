@@ -5,7 +5,6 @@
        ========================================================== -->
     <div class="superior d-flex align-items-center justify-content-between">
         <a class="volver eyebrow" routerLink="/juegos">← Biblioteca</a>
-        <button type="button" class="compartir eyebrow">Compartir</button>
     </div>
 
     @if (cargando()) {
@@ -26,8 +25,17 @@
         </span>
 
         <div class="cabecera-texto">
+
             <h1 class="titulo">{{ d.game.name }}</h1>
 
+            <button type="button" class="btn-meta" [class.btn-meta--activo]="d.game.isGoal" [disabled]="marcandoMeta()"
+                (click)="toggleMeta()">
+                <!-- PLACEHOLDER: reemplazar por el ícono de bandera/estrella definitivo -->
+                <span class="btn-meta-icono" aria-hidden="true">{{ d.game.isGoal ? '★' : '☆' }}</span>
+                <span class="eyebrow">{{ d.game.isGoal ? 'Es tu meta' : 'Marcar como meta' }}</span>
+            </button>
+
+            <!-- resto de linea-meta y progreso igual que ya tenías -->
             <p class="linea-meta">
                 <span class="plataforma dato">{{ plataformaPrincipal(d.game.platform) }}</span>
                 @if (d.game.lastPlayedAt) {
@@ -73,7 +81,7 @@
     <section class="superficie tarjeta-platino">
         <div class="platino-fila">
             <!-- PLACEHOLDER: reemplazar por el SVG del platino -->
-            <span class="platino-esfera" aria-hidden="true"></span>
+            <img src="platino.png" alt="Trofeo de Platino" width="55">
 
             <div class="platino-texto">
                 <h2 class="platino-nombre">{{ p.name }}</h2>
@@ -93,16 +101,9 @@
             </div>
         </div>
 
-        <!-- NOTA: este bloque es texto fijo. No hay dato en el backend que
-             permita calcular "lo más cercano". Queda pendiente de la función
-             "camino al platino". -->
-        <div class="platino-pie">
-            <p class="platino-consejo">
-                Lo más cercano: los 3 finales.<br />
-                Se pueden hacer en una misma partida.
-            </p>
-            <button type="button" class="btn btn-bisel eyebrow">Camino al platino</button>
-        </div>
+        <button type="button" class="btn btn-bisel eyebrow mt-3" [routerLink]="['/juegos', id(), 'guia']">
+            Camino al platino
+        </button>
     </section>
     }
 
@@ -159,9 +160,23 @@
             </span>
 
             <span class="trofeo-derecha">
-                <!-- PLACEHOLDER: reemplazar por el SVG de cada metal -->
-                <span class="metal-punto" [class]="'seg--' + t.type" [class.metal-punto--apagado]="!t.earned"></span>
+                @switch (t.type) {
+                @case ('silver') {
+                <img src="plata.png" alt="Plata" width="30">
+                }
+                @case ('bronze') {
+                <img src="bronce.png" alt="Bronce" width="30">
 
+                }
+                @case ('gold') {
+                <img src="oro.png" alt="Oro" width="30">
+
+                }
+                @case ('platinum') {
+                <img src="platino.png" alt="Platino" width="30">
+
+                }
+                }
                 <span class="trofeo-fecha dato">
                     {{ t.earned && t.earnedAt
                     ? (t.earnedAt | date: 'd MMM y')

@@ -13,8 +13,8 @@
      --font-display: para títulos y números grandes.
      --font-ui: para interfaz y texto corrido.
      --font-data: para porcentajes, fechas y conteos (idealmente tabular). */
-    --font-display: system-ui, sans-serif;
-    --font-ui: system-ui, sans-serif;
+    --font-display: 'Rubik', system-ui, sans-serif;
+    --font-ui: 'Rubik', system-ui, sans-serif;
     --font-data: ui-monospace, "SF Mono", monospace;
 
     /* Escala tipográfica (mobile-first, base 16px) */

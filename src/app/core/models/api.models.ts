@@ -132,6 +132,7 @@ export interface GameDetail {
     platform: string;
     progress: number;
     lastPlayedAt: string | null;
+    isGoal: boolean
 }
 
 /** GET /games/:id — un elemento del array `trophies`. */
@@ -366,4 +367,42 @@ export interface RecentTrophy {
     gameName: string;
     gameIconUrl: string | null;
     earnedAt: string;
+}
+
+export type Dificultad = 'trivial' | 'facil' | 'media' | 'dificil' | 'muy_dificil';
+
+export interface GuideTrophy {
+    nombre: string;
+    dificultad: Dificultad;
+    consejo: string;
+    busquedaYoutube: string;
+    youtubeUrl: string;
+}
+
+export interface GuideResponse {
+    resumen: string;
+    orden: GuideTrophy[];
+}
+
+export interface SuggestedGame {
+    id: string;
+    name: string;
+    iconUrl: string | null;
+    platform: string;
+    progress: number;
+    platinumRarity: number | null;
+}
+
+export interface SuggestionsResponse {
+    enProgreso: SuggestedGame[];
+    sinEmpezar: SuggestedGame[];
+}
+
+export interface GoalGame {
+    id: string;
+    name: string;
+    iconUrl: string | null;
+    platform: string;
+    progress: number;
+    earned: TrophyCount;
 }

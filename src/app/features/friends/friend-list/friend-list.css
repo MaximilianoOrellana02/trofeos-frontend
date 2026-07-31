@@ -1,0 +1,217 @@
+:host {
+    display: block;
+}
+
+.metas {
+    padding: var(--sp-5) var(--sp-5) var(--sp-4);
+}
+
+.titulo {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--tiza);
+    margin-bottom: var(--sp-5);
+}
+
+.mensaje {
+    text-align: center;
+    color: var(--humo);
+    padding: var(--sp-6) 0;
+}
+
+.bloque {
+    margin-bottom: var(--sp-6);
+}
+
+.bloque-titulo {
+    margin-bottom: var(--sp-1);
+}
+
+.bloque-nota {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: 0 0 var(--sp-3);
+}
+
+.vacio {
+    padding: var(--sp-5) var(--sp-4);
+    text-align: center;
+    margin-bottom: var(--sp-6);
+}
+
+.vacio-texto {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: 0;
+}
+
+/* ==========================================================================
+   LISTA
+   ========================================================================== */
+
+.lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.fila {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) 0;
+    border-bottom: 1px solid var(--bisel);
+}
+
+.fila:last-child {
+    border-bottom: none;
+}
+
+.fila-link {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    flex: 1;
+    min-width: 0;
+    text-decoration: none;
+}
+
+.icono {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.icono img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.icono-iniciales {
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.centro {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+}
+
+.nombre {
+    font-size: var(--fs-body);
+    font-weight: 700;
+    color: var(--tiza);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.barra {
+    display: block;
+    height: 2px;
+    border-radius: var(--radius-pill);
+    background-color: var(--bisel);
+    overflow: hidden;
+}
+
+.barra-relleno {
+    display: block;
+    height: 100%;
+    background-color: var(--senal);
+    border-radius: inherit;
+}
+
+.barra-relleno--completo {
+    background-color: var(--metal-platinum);
+}
+
+.meta {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   ACCIONES
+   ========================================================================== */
+
+.agregar {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid var(--senal);
+    border-radius: var(--radius-pill);
+    color: var(--senal);
+    padding: var(--sp-2) var(--sp-3);
+    cursor: pointer;
+}
+
+.agregar:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.agregar:hover:not(:disabled) {
+    background-color: var(--senal-soft);
+}
+
+.quitar {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    color: var(--humo);
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.quitar:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.quitar:hover:not(:disabled) {
+    color: var(--state-danger);
+    background-color: rgba(220, 78, 78, 0.1);
+}
+
+.btn-ver-mas {
+    display: block;
+    width: 100%;
+    margin-top: var(--sp-3);
+    padding: var(--sp-3);
+    background: none;
+    border: 1px dashed var(--bisel);
+    border-radius: var(--radius-sm);
+    color: var(--humo);
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-ver-mas:hover {
+    color: var(--tiza);
+    border-color: var(--humo);
+    background-color: rgba(255, 255, 255, 0.03);
+}

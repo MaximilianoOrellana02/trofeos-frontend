@@ -1,0 +1,163 @@
+:host {
+    display: contents;
+}
+
+.fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-color: var(--overlay);
+    padding: var(--sp-4);
+    animation: aparecer 0.2s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.tarjeta {
+    width: 100%;
+    max-width: 420px;
+    padding: var(--sp-5);
+    margin-bottom: env(safe-area-inset-bottom);
+    animation: subir 0.25s ease;
+}
+
+@keyframes subir {
+    from {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   BLOQUE DE PLATINO
+   ========================================================================== */
+
+.platino-bloque {
+    text-align: center;
+    margin-bottom: var(--sp-4);
+}
+
+/* PLACEHOLDER: aproximación del platino */
+.platino-esfera {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin-bottom: var(--sp-3);
+    background-color: var(--metal-platinum);
+    background-image:
+        repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.35) 0 1px, transparent 1px 4px),
+        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.6), transparent 55%);
+    background-blend-mode: overlay, screen;
+}
+
+.platino-etiqueta {
+    color: var(--metal-platinum);
+    margin-bottom: var(--sp-2);
+}
+
+.platino-nombre {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: var(--tiza);
+    margin: 0 0 var(--sp-1);
+}
+
+.platino-juego {
+    font-size: var(--fs-sm);
+    color: var(--senal);
+    margin: 0;
+}
+
+.separador {
+    height: 1px;
+    background-color: var(--bisel);
+    margin-bottom: var(--sp-4);
+}
+
+.titulo-simple {
+    color: var(--humo);
+    margin-bottom: var(--sp-3);
+}
+
+/* ==========================================================================
+   LISTA DEL RESTO
+   ========================================================================== */
+
+.lista {
+    list-style: none;
+    margin: 0 0 var(--sp-4);
+    padding: 0;
+}
+
+.fila {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-2) 0;
+}
+
+.metal-punto {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.metal--bronze {
+    background-color: var(--metal-bronze);
+}
+
+.metal--silver {
+    background-color: var(--metal-silver);
+}
+
+.metal--gold {
+    background-color: var(--metal-gold);
+}
+
+.fila-texto {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.fila-nombre {
+    font-size: var(--fs-body);
+    font-weight: 700;
+    color: var(--tiza);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fila-juego {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fila-metal {
+    color: var(--humo);
+    flex-shrink: 0;
+}

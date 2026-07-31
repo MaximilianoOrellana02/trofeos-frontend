@@ -84,5 +84,11 @@ export class AuthService {
         localStorage.setItem(TOKEN_KEY, token);
         this.tokenSignal.set(token);
     }
+
+    async changePassword(currentPassword: string, newPassword: string): Promise<void> {
+        await firstValueFrom(
+            this.http.put(`${this.api}/auth/password`, { currentPassword, newPassword })
+        );
+    }
 }
 

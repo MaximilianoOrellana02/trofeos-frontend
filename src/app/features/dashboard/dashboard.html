@@ -82,9 +82,9 @@
         @for (metal of metales(); track metal.tipo) {
         <div class="superficie metal-card">
             <!-- PLACEHOLDER: reemplazar por el SVG del metal correspondiente -->
-            <span class="metal-esfera" [class]="'esfera--' + metal.tipo" aria-hidden="true"></span>
+            <img [src]="metal.tipo" alt="Trofeo Platino" width="35">
             <p class="metal-cantidad dato">{{ metal.cantidad | number }}</p>
-            <p class="eyebrow metal-etiqueta">{{ etiquetaMetal(metal.tipo) }}</p>
+            <p class="eyebrow metal-etiqueta">{{ metal.nombre }}</p>
         </div>
         }
     </section>
@@ -92,12 +92,11 @@
     <!-- ==========================================================
          ÚLTIMOS TROFEOS
          ========================================================== -->
-    @if (s.recentTrophies && s.recentTrophies.length) {
+    @if (recentTrophies().length) {
     <section class="bloque">
         <h2 class="eyebrow bloque-titulo">Lo último que ganaste</h2>
-
         <ul class="lista">
-            @for (t of s.recentTrophies; track $index) {
+            @for (t of recentTrophies(); track $index) {
             <li class="fila">
                 <span class="fila-icono">
                     @if (t.gameIconUrl) {
@@ -112,7 +111,23 @@
                 </span>
 
                 <span class="fila-derecha">
-                    <span class="metal-punto" [class]="'esfera--' + t.type" [attr.title]="etiquetaMetal(t.type)"></span>
+                    @switch (t.type) {
+                    @case ('silver') {
+                    <img src="plata.png" alt="Plata" width="30">
+                    }
+                    @case ('bronze') {
+                    <img src="bronce.png" alt="Bronce" width="30">
+
+                    }
+                    @case ('gold') {
+                    <img src="oro.png" alt="Oro" width="30">
+
+                    }
+                    @case ('platinum') {
+                    <img src="platino.png" alt="Platino" width="30">
+
+                    }
+                    }
                     <span class="fila-fecha dato">{{ t.earnedAt | tiempoRelativo }}</span>
                 </span>
             </li>
@@ -124,7 +139,7 @@
     <!-- ==========================================================
          TROFEOS MÁS RAROS
          ========================================================== -->
-    @if (s.rarestTrophies && s.rarestTrophies.length) {
+    @if (rarestTrophies().length) {
     <section class="bloque">
         <div class="superficie tarjeta-raros">
             <h2 class="eyebrow bloque-titulo">Tus trofeos más raros</h2>
@@ -134,7 +149,7 @@
             </p>
 
             <ul class="lista lista--raros">
-                @for (t of s.rarestTrophies; track $index) {
+                @for (t of rarestTrophies(); track $index) {
                 <li class="fila">
                     <span class="fila-icono">
                         @if (t.iconUrl) {

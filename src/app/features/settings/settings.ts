@@ -5,6 +5,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { Stats } from '../stats/stats';
 import { Tema, ThemeService } from '../../core/services/theme.service';
 import { StatsService } from '../../core/services/stats.service';
+import { NotificationService } from '../../core/services/trophy-celebration.service';
 
 const DURACION_NPSSO_DIAS = 60;
 
@@ -74,5 +75,11 @@ export class Settings implements OnInit {
 
   ocultarImagen(evento: Event): void {
     (evento.target as HTMLImageElement).style.display = 'none';
+  }
+
+  notifications = inject(NotificationService);
+
+  async activarNotificaciones(): Promise<void> {
+    await this.notifications.pedirPermiso();
   }
 }

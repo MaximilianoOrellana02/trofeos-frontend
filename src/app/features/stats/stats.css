@@ -1,0 +1,338 @@
+:host {
+    display: block;
+}
+
+.stats {
+    padding: var(--sp-5) var(--sp-5) var(--sp-4);
+}
+
+.titulo {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--tiza);
+    margin-bottom: var(--sp-5);
+}
+
+.mensaje {
+    text-align: center;
+    color: var(--humo);
+    padding: var(--sp-6) 0;
+}
+
+.bloque {
+    margin-bottom: var(--sp-6);
+}
+
+.bloque-titulo {
+    margin-bottom: var(--sp-3);
+}
+
+/* ==========================================================================
+   COMPLETITUD
+   ========================================================================== */
+
+.tarjeta-completitud {
+    padding: var(--sp-5) var(--sp-4);
+    margin-bottom: var(--sp-6);
+    text-align: center;
+}
+
+.completitud-numero {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--tiza);
+    margin: 0 0 var(--sp-2);
+}
+
+.completitud-numero span {
+    font-size: 1.25rem;
+}
+
+.completitud-detalle {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: 0;
+}
+
+/* ==========================================================================
+   METALES
+   ========================================================================== */
+
+.fila-metal {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    border-bottom: 1px solid var(--bisel);
+}
+
+.fila-metal:last-child {
+    border-bottom: none;
+}
+
+.metal-punto {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.metal--bronze {
+    background-color: var(--metal-bronze);
+}
+
+.metal--silver {
+    background-color: var(--metal-silver);
+}
+
+.metal--gold {
+    background-color: var(--metal-gold);
+}
+
+.metal--platinum {
+    background-color: var(--metal-platinum);
+}
+
+.metal-nombre {
+    font-size: var(--fs-sm);
+    color: var(--tiza);
+    width: 52px;
+    flex-shrink: 0;
+}
+
+.metal-barra {
+    flex: 1;
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background-color: var(--bisel);
+    overflow: hidden;
+}
+
+.metal-barra-relleno {
+    height: 100%;
+    border-radius: inherit;
+}
+
+.metal-conteo {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    width: 72px;
+    flex-shrink: 0;
+    text-align: right;
+}
+
+/* ==========================================================================
+   TIMELINE
+   ========================================================================== */
+
+.tarjeta-timeline {
+    padding: var(--sp-4);
+}
+
+.timeline-destacado {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    margin: 0 0 var(--sp-4);
+}
+
+.timeline-destacado strong {
+    color: var(--tiza);
+}
+
+.timeline-grafico {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--sp-2);
+    height: 120px;
+    margin-bottom: var(--sp-3);
+}
+
+.timeline-columna {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-2);
+    height: 100%;
+}
+
+.timeline-barra-contenedor {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.timeline-barra {
+    width: 100%;
+    min-height: 2px;
+    border-radius: 2px 2px 0 0;
+    background-color: var(--senal);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.timeline-barra-platino {
+    width: 100%;
+    background-color: var(--metal-platinum);
+}
+
+.timeline-etiqueta {
+    font-size: 0.5625rem;
+    color: var(--humo);
+    writing-mode: horizontal-tb;
+}
+
+.timeline-leyenda {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-xs);
+    color: var(--humo);
+    margin: 0;
+}
+
+.leyenda-punto {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.leyenda-punto--total {
+    background-color: var(--senal);
+}
+
+.leyenda-punto--platino {
+    background-color: var(--metal-platinum);
+    margin-left: var(--sp-3);
+}
+
+/* ==========================================================================
+   PLATAFORMAS
+   ========================================================================== */
+
+.fila-plataforma {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    border-bottom: 1px solid var(--bisel);
+}
+
+.fila-plataforma:last-child {
+    border-bottom: none;
+}
+
+.plataforma-nombre {
+    font-size: var(--fs-sm);
+    color: var(--tiza);
+    width: 56px;
+    flex-shrink: 0;
+}
+
+.plataforma-barra {
+    flex: 1;
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background-color: var(--bisel);
+    overflow: hidden;
+}
+
+.plataforma-barra-relleno {
+    height: 100%;
+    border-radius: inherit;
+    background-color: var(--senal);
+}
+
+.plataforma-conteo {
+    font-size: var(--fs-sm);
+    color: var(--humo);
+    width: 24px;
+    flex-shrink: 0;
+    text-align: right;
+}
+
+/* ==========================================================================
+   LISTA DE RAROS (mismo patrón que en el dashboard)
+   ========================================================================== */
+
+.lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.fila {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) 0;
+    border-bottom: 1px solid var(--bisel);
+}
+
+.fila:last-child {
+    border-bottom: none;
+}
+
+.fila-icono {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background-color: var(--estante);
+    border: 1px solid var(--bisel);
+}
+
+.fila-icono img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.fila-iniciales {
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: var(--humo);
+}
+
+.fila-texto {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fila-nombre {
+    font-size: var(--fs-body);
+    font-weight: 700;
+    color: var(--tiza);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fila-juego {
+    font-size: var(--fs-sm);
+    color: var(--senal);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fila-rareza {
+    font-weight: 700;
+    flex-shrink: 0;
+}

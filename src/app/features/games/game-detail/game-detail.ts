@@ -186,4 +186,28 @@ export class GameDetail implements OnInit {
     (evento.target as HTMLImageElement).style.display = 'none';
   }
 
+  marcandoMeta = signal(false);
+
+  toggleMeta(): void {
+    const actual = this.data();
+    if (!actual || this.marcandoMeta()) return;
+
+    const nuevoValor = !actual.game.isGoal;
+    this.marcandoMeta.set(true);
+
+    this.gamesService.toggleGoal(this.id(), nuevoValor).subscribe({
+      next: () => {
+        // Actualizamos el signal sin perder el resto del objeto
+        this.data.update((d) =>
+          d ? { ...d, game: { ...d.game, isGoal: nuevoValor } } : d
+        );
+        this.marcandoMeta.set(false);
+      },
+      error: (e) => {
+        console.error(e);
+        this.marcandoMeta.set(false);
+      },
+    });
+  }
+
 }

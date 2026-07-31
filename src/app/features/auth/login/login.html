@@ -5,15 +5,6 @@
        ========================================================== -->
     <header class="login-hero">
 
-        <!-- Los cuatro metales, en orden de jerarquía.
-         PLACEHOLDER: reemplazar cada <span> por el SVG correspondiente. -->
-        <div class="metales d-flex align-items-center" aria-hidden="true">
-            <span class="metal metal--platino"></span>
-            <span class="metal metal--oro"></span>
-            <span class="metal metal--plata"></span>
-            <span class="metal metal--bronce"></span>
-        </div>
-
         <h1 class="hero-titulo">
             Todo <em>lo que</em><br />
             ganaste,<br />
@@ -58,9 +49,16 @@
             <!-- Contraseña -->
             <div class="mb-4">
                 <label class="form-label eyebrow" for="password">Contraseña</label>
-                <input id="password" type="password" class="form-control" [class.is-invalid]="showError('password')"
-                    formControlName="password" placeholder="mínimo 6 caracteres"
-                    [attr.autocomplete]="mode() === 'login' ? 'current-password' : 'new-password'" />
+                <div class="input-group">
+                    <input id="password" [type]="password()" class="form-control"
+                        [class.is-invalid]="showError('password')" formControlName="password"
+                        placeholder="mínimo 6 caracteres"
+                        [attr.autocomplete]="mode() === 'login' ? 'current-password' : 'new-password'" />
+                    <button type="button" class="btn btn-outline-secondary" (click)="togglePasword()">
+                        {{password() === 'password' ? 'Mostrar' : 'Ocultar'}}
+                    </button>
+
+                </div>
                 @if (showError('password')) {
                 <p class="mensaje-campo">La contraseña necesita al menos 6 caracteres.</p>
                 }
@@ -80,12 +78,6 @@
                 }
             </button>
         </form>
-
-        @if (mode() === 'login') {
-        <p class="nota-recuperacion">
-            Si te olvidaste la contraseña, te mando un link al email.
-        </p>
-        }
     </main>
 
     <!-- ==========================================================

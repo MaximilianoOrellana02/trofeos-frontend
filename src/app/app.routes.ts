@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard, guestGuard, psnLinkedGuard } from './core/guards/auth.guard';
+import lo from '@angular/common/locales/lo';
 
 export const routes: Routes = [
     {
@@ -37,24 +38,29 @@ export const routes: Routes = [
                     .then((m) => m.GameDetail)
             },
             {
+                path: 'juegos/:id/guia',
+                loadComponent: () => import('./features/games/game-guide/game-guide')
+                    .then((m) => m.GameGuide)
+            },
+            {
                 path: 'estadisticas',
                 loadComponent: () => import('./features/stats/stats')
                     .then((m) => m.Stats)
             },
             {
-                path: 'amigos',
+                path: 'metas',
                 loadComponent: () => import('./features/friends/friend-list/friend-list')
                     .then((m) => m.FriendList)
-            },
-            {
-                path: 'amigos/:accountId',
-                loadComponent: () => import('./features/friends/comparison/comparison')
-                    .then((m) => m.Comparison)
             },
             {
                 path: 'ajustes',
                 loadComponent: () => import('./features/settings/settings')
                     .then((m) => m.Settings)
+            },
+            {
+                path: 'ajustes/contrasena',
+                loadComponent: () => import('./features/change-password/change-password')
+                    .then((m) => m.ChangePassword)
             },
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },
         ],

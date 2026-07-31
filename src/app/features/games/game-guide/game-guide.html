@@ -1,0 +1,124 @@
+<div class="guia">
+
+    <!-- ==========================================================
+       BARRA SUPERIOR
+       ========================================================== -->
+    <div class="superior d-flex align-items-center justify-content-between">
+        <a class="volver eyebrow" [routerLink]="['/juegos', id()]">
+            ← {{ detalle()?.game?.name ?? 'Volver' }}
+        </a>
+
+        <button type="button" class="btn-regenerar" [disabled]="cargandoGuia()" (click)="regenerarGuia()"
+            title="Volver a generar la guía con IA">
+            <i class="fa-solid fa-arrows-rotate" [class.fa-spin]="cargandoGuia()"></i>
+            <span class="eyebrow">Regenerar guía</span>
+        </button>
+    </div>
+
+    @if (detalle(); as d) {
+    <header class="cabecera">
+        <span class="portada">
+            @if (d.game.iconUrl) {
+            <img [src]="d.game.iconUrl" [alt]="d.game.name" (error)="ocultarImagen($event)" />
+            }
+        </span>
+
+        <div class="cabecera-texto">
+            <p class="eyebrow etiqueta">Camino al platino</p>
+            <h1 class="titulo">{{ d.game.name }}</h1>
+        </div>
+    </header>
+    }
+
+    <!-- ==========================================================
+       RESUMEN
+       ========================================================== -->
+    <section class="superficie tarjeta-resumen">
+        <img src="platino.png" alt="Guia Platino" width="55">
+        <div class="resumen-texto">
+            <p class="resumen-titulo">Te faltan {{ faltantes() }} trofeos</p>
+            @if (guia(); as g) {
+            <p class="resumen-detalle">{{ g.resumen }}</p>
+            }
+        </div>
+    </section>
+
+    <!-- ==========================================================
+       ESTADOS
+       ========================================================== -->
+    @if (cargandoGuia()) {
+    <p class="mensaje eyebrow">Armando la guía</p>
+    }
+
+    @if (error()) {
+    <div class="alerta">
+        <p class="alerta-texto">{{ error() }}</p>
+        <button type="button" class="btn btn-bisel eyebrow" (click)="reintentar()">
+            Reintentar
+        </button>
+    </div>
+    }
+
+    @if (guia(); as g) {
+    @if (!g.orden.length) {
+    <div class="superficie vacio">
+        <p class="vacio-texto">¡Ya tenés el platino de este juego!</p>
+    </div>
+    }
+
+    <!-- ==========================================================
+         LISTA ORDENADA
+         ========================================================== -->
+    <ol class="lista">
+        @for (item of g.orden; track item.nombre; let i = $index) {
+        <li class="superficie paso">
+            <div class="paso-cabecera">
+                <span class="paso-numero dato">{{ i + 1 }}</span>
+
+                <div class="paso-titulo-bloque">
+                    <p class="paso-nombre">{{ item.nombre }}</p>
+                    @if (trofeo(item.nombre); as t) {
+                    <p class="paso-desc">{{ t.description }}</p>
+                    }
+                </div>
+
+                @if (trofeo(item.nombre); as t) {
+                <span class="paso-icono">
+                    @if (t.iconUrl) {
+                    <img [src]="t.iconUrl" [alt]="t.name" (error)="ocultarImagen($event)" />
+                    }
+                </span>
+                }
+            </div>
+
+            <div class="paso-meta">
+                <span class="dificultad eyebrow" [class]="claseDificultad(item.dificultad)">
+                    {{ etiquetaDificultad(item.dificultad) }}
+                </span>
+
+                @if (trofeo(item.nombre); as t) {
+                <span class="rareza dato">
+                    {{ t.rarity | number: '1.1-1' }}%
+                    <span class="rareza-etiqueta" [class]="claseRareza(t.rarity)">
+                        {{ etiquetaRareza(t.rarity) }}
+                    </span>
+                </span>
+                }
+            </div>
+
+            <div class="paso-guia">
+                <p class="eyebrow paso-guia-titulo">Guía generada</p>
+                <p class="paso-consejo">{{ item.consejo }}</p>
+
+                <a class="boton-youtube" [href]="item.youtubeUrl" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span class="eyebrow">Cómo conseguir "{{ item.nombre }}"</span>
+                    <span class="youtube-flecha" aria-hidden="true">↗</span>
+                </a>
+            </div>
+        </li>
+        }
+    </ol>
+    }
+
+</div>

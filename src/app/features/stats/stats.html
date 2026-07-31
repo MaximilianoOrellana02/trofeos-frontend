@@ -1,1 +1,139 @@
-<p>stats works!</p>
+<div class="stats">
+
+    <h1 class="titulo">Estadísticas</h1>
+
+    @if (cargando() && !stats()) {
+    <p class="mensaje eyebrow">Cargando</p>
+    }
+
+    @if (stats(); as s) {
+
+    <!-- ==========================================================
+         COMPLETITUD
+         ========================================================== -->
+    <section class="superficie tarjeta-completitud">
+        <p class="completitud-numero dato">
+            {{ s.totals.completionRate | number: '1.1-1' }}<span>%</span>
+        </p>
+        <p class="completitud-detalle">
+            {{ s.totals.trophiesEarned | number }} de {{ s.totals.trophiesDefined | number }}
+            trofeos · {{ s.totals.points | number }} puntos
+        </p>
+    </section>
+
+    <!-- ==========================================================
+         METALES
+         ========================================================== -->
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Trofeos por metal</h2>
+
+        <div class="superficie">
+            @for (m of metales(); track m.tipo) {
+            <div class="fila-metal">
+                <span class="metal-punto" [class]="'metal--' + m.tipo"></span>
+                <span class="metal-nombre">{{ m.nombre }}</span>
+
+                <div class="metal-barra">
+                    <div class="metal-barra-relleno" [class]="'metal--' + m.tipo" [style.width.%]="m.porcentaje"></div>
+                </div>
+
+                <span class="metal-conteo dato">{{ m.obtenidos }}/{{ m.total }}</span>
+            </div>
+            }
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         TIMELINE
+         ========================================================== -->
+    @if (barrasTimeline().length) {
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Trofeos por mes</h2>
+
+        <div class="superficie tarjeta-timeline">
+            @if (mesConMasTrofeos(); as mejor) {
+            <p class="timeline-destacado">
+                Tu mejor mes: <strong>{{ mejor.etiqueta }}</strong> con
+                {{ mejor.total }} trofeos
+            </p>
+            }
+
+            <div class="timeline-grafico">
+                @for (b of barrasTimeline(); track b.mes) {
+                <div class="timeline-columna">
+                    <div class="timeline-barra-contenedor">
+                        <div class="timeline-barra" [style.height.%]="b.alturaTotal">
+                            @if (b.platino > 0) {
+                            <div class="timeline-barra-platino"
+                                [style.height.%]="(b.alturaPlatino / (b.alturaTotal || 1)) * 100"></div>
+                            }
+                        </div>
+                    </div>
+                    <span class="timeline-etiqueta dato">{{ b.etiqueta }}</span>
+                </div>
+                }
+            </div>
+
+            <p class="timeline-leyenda">
+                <span class="leyenda-punto leyenda-punto--total"></span> trofeos
+                <span class="leyenda-punto leyenda-punto--platino"></span> platinos
+            </p>
+        </div>
+    </section>
+    }
+
+    <!-- ==========================================================
+         PLATAFORMAS
+         ========================================================== -->
+    @if (barrasPlataforma().length) {
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Juegos por plataforma</h2>
+
+        <div class="superficie">
+            @for (p of barrasPlataforma(); track p.plataforma) {
+            <div class="fila-plataforma">
+                <span class="plataforma-nombre dato">{{ p.plataforma }}</span>
+                <div class="plataforma-barra">
+                    <div class="plataforma-barra-relleno" [style.width.%]="p.ancho"></div>
+                </div>
+                <span class="plataforma-conteo dato">{{ p.juegos }}</span>
+            </div>
+            }
+        </div>
+    </section>
+    }
+
+    <!-- ==========================================================
+         MÁS RAROS
+         ========================================================== -->
+    @if (s.rarestTrophies.length) {
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Tus trofeos más raros</h2>
+
+        <ul class="lista">
+            @for (t of s.rarestTrophies; track $index) {
+            <li class="fila">
+                <span class="fila-icono">
+                    @if (t.iconUrl) {
+                    <img [src]="t.iconUrl" [alt]="t.name" (error)="ocultarImagen($event)" />
+                    }
+                    <span class="fila-iniciales dato">{{ iniciales(t.gameName) }}</span>
+                </span>
+
+                <span class="fila-texto">
+                    <span class="fila-nombre">{{ t.name }}</span>
+                    <span class="fila-juego">{{ t.gameName }}</span>
+                </span>
+
+                <span class="fila-rareza dato" [class]="claseRareza(t.rarity)">
+                    {{ t.rarity | number: '1.1-1' }}%
+                </span>
+            </li>
+            }
+        </ul>
+    </section>
+    }
+
+    }
+
+</div>

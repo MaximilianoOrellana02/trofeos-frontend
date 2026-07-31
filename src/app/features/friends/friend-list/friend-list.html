@@ -1,1 +1,150 @@
-<p>friend-list works!</p>
+<div class="metas">
+
+    <h1 class="titulo">Metas</h1>
+
+    @if (cargando()) {
+    <p class="mensaje eyebrow">Cargando</p>
+    }
+
+    <!-- ==========================================================
+       TUS METAS
+       ========================================================== -->
+    @if (metas().length) {
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Tus metas</h2>
+
+        <ul class="lista">
+            @for (j of metas(); track j.id) {
+            <li class="fila">
+                <a class="fila-link" [routerLink]="['/juegos', j.id]">
+                    <span class="icono" [style.background-color]="colorFondo(j.name)">
+                        @if (j.iconUrl) {
+                        <img [src]="j.iconUrl" [alt]="j.name" (error)="ocultarImagen($event)" />
+                        }
+                        <span class="icono-iniciales dato">{{ iniciales(j.name) }}</span>
+                    </span>
+
+                    <span class="centro">
+                        <span class="nombre">{{ j.name }}</span>
+                        <span class="barra">
+                            <span class="barra-relleno" [class.barra-relleno--completo]="j.progress >= 100"
+                                [style.width.%]="j.progress"></span>
+                        </span>
+                        <span class="meta dato">{{ j.progress }}% completado</span>
+                    </span>
+                </a>
+
+                <button type="button" class="quitar" [disabled]="procesando() === j.id" (click)="quitarMeta(j)"
+                    title="Quitar de tus metas">×</button>
+            </li>
+            }
+        </ul>
+    </section>
+    } @else if (!cargando()) {
+    <div class="superficie vacio">
+        <p class="vacio-texto">
+            Todavía no marcaste ninguna meta. Elegí un juego de la lista de abajo,
+            o marcalo desde su pantalla de detalle.
+        </p>
+    </div>
+    }
+
+    <!-- ==========================================================
+       SUGERIDOS: EN PROGRESO
+       ========================================================== -->
+    @if (enProgreso().length) {
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Seguí lo que ya empezaste</h2>
+        <p class="bloque-nota">Ordenados por qué tan alcanzable es el platino.</p>
+
+        <ul class="lista">
+            @for (j of enProgresoVisibles(); track j.id) {
+            <li class="fila">
+                <a class="fila-link" [routerLink]="['/juegos', j.id]">
+                    <span class="icono" [style.background-color]="colorFondo(j.name)">
+                        @if (j.iconUrl) {
+                        <img [src]="j.iconUrl" [alt]="j.name" (error)="ocultarImagen($event)" />
+                        }
+                        <span class="icono-iniciales dato">{{ iniciales(j.name) }}</span>
+                    </span>
+
+                    <span class="centro">
+                        <span class="nombre">{{ j.name }}</span>
+                        <span class="meta dato">
+                            {{ j.progress }}% ·
+                            @if (j.platinumRarity !== null) {
+                            platino {{ j.platinumRarity | number: '1.1-1' }}%
+                            }
+                        </span>
+                    </span>
+                </a>
+
+                <button type="button" class="agregar eyebrow" [disabled]="procesando() === j.id"
+                    (click)="agregarMeta(j)">+ meta</button>
+            </li>
+            }
+        </ul>
+
+        @if (enProgreso().length > 5) {
+        <button type="button" class="btn-ver-mas eyebrow" (click)="toggleVerMasEnProgreso()">
+            {{ mostrarMasEnProgreso() ? 'Ver menos' : 'Ver más (' + (enProgreso().length - 5) + ' más)' }}
+        </button>
+        }
+    </section>
+    }
+
+    <!-- ==========================================================
+       SUGERIDOS: SIN EMPEZAR
+       ========================================================== -->
+    @if (sinEmpezar().length) {
+    <section class="bloque">
+        <h2 class="eyebrow bloque-titulo">Para arrancar de cero</h2>
+        <p class="bloque-nota">Los que más gente logró platinar, primero.</p>
+
+        <ul class="lista">
+            @for (j of sinEmpezarVisibles(); track j.id) {
+            <li class="fila">
+                <a class="fila-link" [routerLink]="['/juegos', j.id]">
+                    <span class="icono" [style.background-color]="colorFondo(j.name)">
+                        @if (j.iconUrl) {
+                        <img [src]="j.iconUrl" [alt]="j.name" (error)="ocultarImagen($event)" />
+                        }
+                        <span class="icono-iniciales dato">{{ iniciales(j.name) }}</span>
+                    </span>
+
+                    <span class="centro">
+                        <span class="nombre">{{ j.name }}</span>
+                        <span class="meta dato">
+                            @if (j.platinumRarity !== null) {
+                            platino {{ j.platinumRarity | number: '1.1-1' }}%
+                            } @else {
+                            sin sincronizar el detalle
+                            }
+                        </span>
+                    </span>
+                </a>
+
+                <button type="button" class="agregar eyebrow" [disabled]="procesando() === j.id"
+                    (click)="agregarMeta(j)">+ meta</button>
+            </li>
+            }
+        </ul>
+
+        @if (sinEmpezar().length > 5) {
+        <button type="button" class="btn-ver-mas eyebrow" (click)="toggleVerMasSinEmpezar()">
+            {{ mostrarMasSinEmpezar() ? 'Ver menos' : 'Ver más (' + (sinEmpezar().length - 5) + ' más)' }}
+        </button>
+        }
+    </section>
+    }
+
+    @if (!cargando() && !enProgreso().length && !sinEmpezar().length) {
+    <div class="superficie vacio">
+        <p class="vacio-texto">
+            No hay sugerencias por ahora. Sincronizá para traer más datos, o ya
+            platinaste todo lo que tenés 🏆
+        </p>
+    </div>
+    }
+
+</div>

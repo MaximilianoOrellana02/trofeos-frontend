@@ -25,14 +25,9 @@
             </div>
 
             <!-- PENDIENTE: sin endpoint en el backend todavía -->
-            <button type="button" class="opcion" disabled>
+            <button type="button" class="opcion" routerLink="/ajustes/contrasena">
                 <span>Cambiar contraseña</span>
                 <span class="opcion-flecha">→</span>
-            </button>
-
-            <button type="button" class="opcion opcion--ultima" disabled>
-                <span>Cambiar mi email</span>
-                <span class="opcion-valor dato">{{ auth.currentUser()?.email }}</span>
             </button>
         </div>
     </section>
@@ -128,15 +123,26 @@
             <!-- PENDIENTE: requiere Web Push (Service Worker + VAPID). No disponible en web. -->
             <div class="toggle-fila">
                 <span class="toggle-texto">
-                    <span class="toggle-nombre">
-                        Avisarme de trofeos nuevos
-                        <span class="badge-proximamente eyebrow">Próximamente</span>
-                    </span>
+                    <span class="toggle-nombre">Avisarme de trofeos nuevos</span>
                     <span class="toggle-detalle">
-                        Notificación cuando aparece uno, y una distinta si es platino.
+                        @switch (notifications.permiso()) {
+                        @case ('granted') { Activadas. Te avisamos aunque tengas la pestaña de fondo. }
+                        @case ('denied') { Las bloqueaste en el navegador. Activalas desde la configuración del sitio. }
+                        @case ('no-soportado') { Tu navegador no soporta esto. }
+                        @default { Notificación cuando aparece un trofeo, distinta si es platino. }
+                        }
                     </span>
                 </span>
+
+                @if (notifications.permiso() === 'granted') {
+                <span class="toggle-switch toggle-switch--on"></span>
+                } @else if (notifications.permiso() === 'default') {
+                <button type="button" class="btn btn-bisel eyebrow" (click)="activarNotificaciones()">
+                    Activar
+                </button>
+                } @else {
                 <span class="toggle-switch toggle-switch--deshabilitado" aria-disabled="true"></span>
+                }
             </div>
 
             <div class="fila-simple">

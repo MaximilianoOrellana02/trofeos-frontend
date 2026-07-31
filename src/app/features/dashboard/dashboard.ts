@@ -28,28 +28,26 @@ export class Dashboard {
     const s = this.stats();
     if (!s) return [];
     return [
-      { tipo: 'platinum' as TrophyType, cantidad: s.earned?.platinum ?? 0 },
-      { tipo: 'gold' as TrophyType, cantidad: s.earned?.gold ?? 0 },
-      { tipo: 'silver' as TrophyType, cantidad: s.earned?.silver ?? 0 },
-      { tipo: 'bronze' as TrophyType, cantidad: s.earned?.bronze ?? 0 },
+      { tipo: 'platino.png' as TrophyType, cantidad: s.earned?.platinum ?? 0, nombre: 'Platino' },
+      { tipo: 'oro.png' as TrophyType, cantidad: s.earned?.gold ?? 0, nombre: 'Oro' },
+      { tipo: 'plata.png' as TrophyType, cantidad: s.earned?.silver ?? 0, nombre: 'Plata' },
+      { tipo: 'bronce.png' as TrophyType, cantidad: s.earned?.bronze ?? 0, nombre: 'Bronce' },
     ];
   });
 
-  /** Separa el porcentaje en parte entera y decimal para maquetarlo distinto. */
   readonly completitud = computed(() => this.stats()?.totals?.completionRate ?? 0);
+  readonly recentTrophies = computed(() => this.stats()?.recentTrophies?.slice(0, 5) ?? []);
+  readonly rarestTrophies = computed(() => this.stats()?.rarestTrophies?.slice(0, 5) ?? []);
 
   private sincronizabaAntes = false;
 
   constructor() {
     this.statsService.cargar();
 
-    // Solo depende de sincronizando(). Todo lo demás va en untracked
-    // para no volverse dependencia del effect.
     effect(() => {
       const sincronizandoAhora = this.sincronizando();
 
       untracked(() => {
-        // Recargamos únicamente en la transición de "sincronizando" a "listo"
         if (this.sincronizabaAntes && !sincronizandoAhora) {
           this.statsService.cargar();
         }
@@ -71,7 +69,6 @@ export class Dashboard {
     }
   }
 
-  /** Fallback cuando el ícono de Sony no carga: mostramos iniciales. */
   iniciales(nombre: string): string {
     return nombre
       .replace(/[^\p{L}\p{N} ]/gu, '')

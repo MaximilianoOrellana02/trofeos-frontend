@@ -26,6 +26,17 @@ export class Login {
     password: ['', [Validators.required, Validators.minLength(6)]]
   })
 
+  password = signal<string | null>('password')
+
+
+  togglePasword() {
+    if (this.password() === 'password') {
+      this.password.set('text')
+    } else if (this.password() === 'text') {
+      this.password.set('password')
+    }
+  }
+
   readonly submitLabel = computed(() =>
     this.mode() === 'login' ? 'Entrar a mis trofeos' : 'Crear mi cuenta'
   )

@@ -1,0 +1,44 @@
+@if (trofeos().length) {
+<div class="fondo" (click)="cerrar()">
+    <div class="tarjeta superficie" (click)="$event.stopPropagation()">
+
+        @if (platino(); as p) {
+        <!-- Tratamiento especial: el platino es el logro más grande del juego -->
+        <div class="platino-bloque">
+            <!-- PLACEHOLDER: reemplazar por el SVG del platino -->
+            <span class="platino-esfera" aria-hidden="true"></span>
+            <p class="eyebrow platino-etiqueta">¡Platino!</p>
+            <h2 class="platino-nombre">{{ p.trophyName }}</h2>
+            <p class="platino-juego">{{ p.gameName }}</p>
+        </div>
+
+        @if (resto().length) {
+        <div class="separador"></div>
+        }
+        } @else {
+        <p class="eyebrow titulo-simple">
+            {{ trofeos().length === 1 ? 'Nuevo trofeo' : 'Nuevos trofeos' }}
+        </p>
+        }
+
+        @if (resto().length) {
+        <ul class="lista">
+            @for (t of resto(); track $index) {
+            <li class="fila">
+                <span class="metal-punto" [class]="'metal--' + t.trophyType"></span>
+                <span class="fila-texto">
+                    <span class="fila-nombre">{{ t.trophyName }}</span>
+                    <span class="fila-juego">{{ t.gameName }}</span>
+                </span>
+                <span class="eyebrow fila-metal">{{ nombreMetal(t.trophyType) }}</span>
+            </li>
+            }
+        </ul>
+        }
+
+        <button type="button" class="btn btn-tiza w-100 eyebrow" (click)="cerrar()">
+            Genial
+        </button>
+    </div>
+</div>
+}

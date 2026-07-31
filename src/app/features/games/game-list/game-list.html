@@ -16,9 +16,7 @@
     <div class="buscador">
         <!-- PLACEHOLDER: reemplazar por el ícono de lupa definitivo -->
         <span class="buscador-icono" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
-                <circle cx="11" cy="11" r="7" />
-            </svg>
+            <i class="fa-solid fa-magnifying-glass"></i>
         </span>
         <input type="search" class="form-control buscador-campo" placeholder="Buscar por nombre" [value]="busqueda()"
             (input)="alBuscar($any($event.target).value)" />
@@ -95,8 +93,7 @@
                 <span class="derecha-abajo">
                     <span class="porcentaje dato">{{ j.progress }}%</span>
                     @if (j.earned.platinum > 0) {
-                    <!-- PLACEHOLDER: reemplazar por el SVG del platino -->
-                    <span class="platino" title="Platino obtenido"></span>
+                    <img src="platino.png" alt="Platino obtenido" width="30">
                     }
                 </span>
             </span>
