@@ -332,6 +332,41 @@
     white-space: nowrap;
 }
 
+.fila-icono--link {
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease, border-color 0.2s ease;
+}
+
+.fila-icono--link:hover {
+    transform: scale(1.05);
+    filter: brightness(1.15);
+    border-color: var(--tiza);
+}
+
+.fila-juego--link {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s ease;
+}
+
+.fila-juego--link:hover {
+    color: var(--tiza);
+    text-decoration: underline;
+}
+
+.fila-juego--link:hover .icono-acceso {
+    transform: translateX(2px);
+    color: var(--tiza);
+}
+
+.icono-acceso {
+    font-size: 0.6875rem;
+    color: var(--humo);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
 .fila-rareza {
     font-weight: 700;
     flex-shrink: 0;

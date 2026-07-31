@@ -1,9 +1,9 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { GameListItem, TrophyType } from '../../core/models/api.models';
 import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { GameListItem, TrophyType } from '../../core/models/api.models';
 import { StatsService } from '../../core/services/stats.service';
 import { GamesService } from '../../core/services/games.service';
-
 
 interface BarraTimeline {
   mes: string;
@@ -29,10 +29,9 @@ const NOMBRE_METAL: Record<TrophyType, string> = {
 
 const JERARQUIA_PLATAFORMAS = ['PS5', 'PS4', 'PS3', 'PSVITA'];
 
-
 @Component({
   selector: 'app-stats',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, RouterLink],
   templateUrl: './stats.html',
   styleUrl: './stats.css',
 })

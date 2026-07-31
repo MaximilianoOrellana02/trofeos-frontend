@@ -98,16 +98,32 @@
         <ul class="lista">
             @for (t of recentTrophies(); track $index) {
             <li class="fila">
+                @if (t.gameId) {
+                <a [routerLink]="['/juegos', t.gameId]" class="fila-icono fila-icono--link" [title]="'Ver ' + t.gameName">
+                    @if (t.gameIconUrl) {
+                    <img [src]="t.gameIconUrl" [alt]="t.gameName" (error)="ocultarImagen($event)" />
+                    }
+                    <span class="fila-iniciales dato">{{ iniciales(t.gameName) }}</span>
+                </a>
+                } @else {
                 <span class="fila-icono">
                     @if (t.gameIconUrl) {
                     <img [src]="t.gameIconUrl" [alt]="t.gameName" (error)="ocultarImagen($event)" />
                     }
                     <span class="fila-iniciales dato">{{ iniciales(t.gameName) }}</span>
                 </span>
+                }
 
                 <span class="fila-texto">
                     <span class="fila-nombre">{{ t.name }}</span>
+                    @if (t.gameId) {
+                    <a [routerLink]="['/juegos', t.gameId]" class="fila-juego fila-juego--link" [title]="'Ver ' + t.gameName">
+                        <span>{{ t.gameName }}</span>
+                        <i class="fa-solid fa-chevron-right icono-acceso"></i>
+                    </a>
+                    } @else {
                     <span class="fila-juego">{{ t.gameName }}</span>
+                    }
                 </span>
 
                 <span class="fila-derecha">
@@ -151,16 +167,32 @@
             <ul class="lista lista--raros">
                 @for (t of rarestTrophies(); track $index) {
                 <li class="fila">
+                    @if (t.gameId) {
+                    <a [routerLink]="['/juegos', t.gameId]" class="fila-icono fila-icono--link" [title]="'Ver ' + t.gameName">
+                        @if (t.iconUrl) {
+                        <img [src]="t.iconUrl" [alt]="t.name" (error)="ocultarImagen($event)" />
+                        }
+                        <span class="fila-iniciales dato">{{ iniciales(t.gameName) }}</span>
+                    </a>
+                    } @else {
                     <span class="fila-icono">
                         @if (t.iconUrl) {
                         <img [src]="t.iconUrl" [alt]="t.name" (error)="ocultarImagen($event)" />
                         }
                         <span class="fila-iniciales dato">{{ iniciales(t.gameName) }}</span>
                     </span>
+                    }
 
                     <span class="fila-texto">
                         <span class="fila-nombre">{{ t.name }}</span>
+                        @if (t.gameId) {
+                        <a [routerLink]="['/juegos', t.gameId]" class="fila-juego fila-juego--link" [title]="'Ver ' + t.gameName">
+                            <span>{{ t.gameName }}</span>
+                            <i class="fa-solid fa-chevron-right icono-acceso"></i>
+                        </a>
+                        } @else {
                         <span class="fila-juego">{{ t.gameName }}</span>
+                        }
                     </span>
 
                     <span class="fila-derecha">

@@ -174,6 +174,7 @@ export interface StatsTotals {
 
 /** GET /stats — un elemento de `rarestTrophies`. */
 export interface RarestTrophy {
+    gameId?: string | null;
     name: string;
     type: TrophyType;
     iconUrl: string | null;
@@ -361,6 +362,7 @@ export interface StatsProfile {
 }
 
 export interface RecentTrophy {
+    gameId?: string | null;
     name: string;
     type: TrophyType;
     iconUrl: string | null;
